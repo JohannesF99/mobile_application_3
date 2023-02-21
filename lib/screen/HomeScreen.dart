@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile_application_3/screen/NewReminderScreen.dart';
 import 'package:mobile_application_3/widget/ReminderTile.dart';
 
+import '../database/ReminderDB.dart';
 import '../model/Reminder.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.db});
+
+  final ReminderDB db;
 
   @override
   State<HomeScreen> createState() => _HomeScreen();
@@ -13,7 +16,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
 
-  final _reminderList = <Reminder>[];
+  late final ReminderDB db;
+  late List<Reminder> _reminderList;
+
+  @override
+  void initState() {
+    db = widget.db;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,39 +39,54 @@ class _HomeScreen extends State<HomeScreen> {
           final Reminder? newReminder = await Navigator.push(context,
               MaterialPageRoute(builder: (_) => const NewReminderScreen())
           );
-          setState(() {
-            newReminder != null ? _reminderList.add(newReminder) : null;
-          });
+          if (newReminder != null) {
+            // TODO Error Handling
+            final rem = await db.insert(newReminder);
+            setState(() {
+              _reminderList.add(rem);
+            });
+          }
         },
         child: const Icon(Icons.add),
       ),
-      body: ListView.builder(
-        itemCount: _reminderList.length,
-        itemBuilder: (context, i) =>
-          ReminderTile(
-            reminder: _reminderList[i],
-            onLongPress: () => showDialog(
-                context: context,
-                builder: (_) => AlertDialog(
-                  title: const Text("Termin wird gelöscht?"),
-                  actions: [
-                    TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text("Abbrechen")
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _reminderList.removeAt(i);
-                          });
-                          Navigator.pop(context);
-                        },
-                        child: const Text("OK")
-                    ),
-                  ],
-                )
-            )
-          )
+      body: FutureBuilder(
+        future: db.getAll(),
+        builder: (BuildContext context, AsyncSnapshot<List<Reminder>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            _reminderList = snapshot.data ?? [];
+            return ListView.builder(
+                itemCount: _reminderList.length,
+                itemBuilder: (context, i) =>
+                    ReminderTile(
+                        reminder: _reminderList[i],
+                        onLongPress: () => showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: const Text("Termin wird gelöscht?"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text("Abbrechen")
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      // TODO Error-Handling
+                                      db.delete(_reminderList[i].id!);
+                                      setState(() {
+                                        _reminderList.removeAt(i);
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("OK")
+                                ),
+                              ],
+                            )
+                        )
+                    )
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }
