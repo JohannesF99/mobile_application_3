@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../model/Reminder.dart';
@@ -53,4 +54,10 @@ create table Reminder (
   }
 
   Future close() async => db.close();
+  
+  static void showError(BuildContext context){
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Es ist ein Fehler mit der Datenbank aufgetreten!")
+    ));
+  }
 }

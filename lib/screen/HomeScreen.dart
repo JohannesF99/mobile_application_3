@@ -40,11 +40,14 @@ class _HomeScreen extends State<HomeScreen> {
               MaterialPageRoute(builder: (_) => const NewReminderScreen())
           );
           if (newReminder != null) {
-            // TODO Error Handling
             final rem = await db.insert(newReminder);
-            setState(() {
-              _reminderList.add(rem);
-            });
+            if (rem.id == 0) {
+              Future.delayed(Duration.zero).then((value) => ReminderDB.showError(context));
+            } else {
+              setState(() {
+                _reminderList.add(rem);
+              });
+            }
           }
         },
         child: const Icon(Icons.add),
@@ -69,13 +72,16 @@ class _HomeScreen extends State<HomeScreen> {
                                     child: const Text("Abbrechen")
                                 ),
                                 TextButton(
-                                    onPressed: () {
-                                      // TODO Error-Handling
-                                      db.delete(_reminderList[i].id!);
-                                      setState(() {
-                                        _reminderList.removeAt(i);
-                                      });
-                                      Navigator.pop(context);
+                                    onPressed: () async {
+                                      final affected = await db.delete(_reminderList[i].id!);
+                                      if (affected == 0) {
+                                        Future.delayed(Duration.zero).then((value) => ReminderDB.showError(context));
+                                      } else {
+                                        setState(() {
+                                          _reminderList.removeAt(i);
+                                        });
+                                      }
+                                      Future.delayed(Duration.zero).then((value) => Navigator.pop(context));
                                     },
                                     child: const Text("OK")
                                 ),
