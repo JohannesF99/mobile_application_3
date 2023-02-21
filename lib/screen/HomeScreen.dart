@@ -24,19 +24,44 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: Colors.black,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
         onPressed: () async {
           final Reminder? newReminder = await Navigator.push(context,
-              MaterialPageRoute(builder: (_) => NewReminderScreen())
+              MaterialPageRoute(builder: (_) => const NewReminderScreen())
           );
           setState(() {
             newReminder != null ? _reminderList.add(newReminder) : null;
           });
         },
+        child: const Icon(Icons.add),
       ),
       body: ListView.builder(
         itemCount: _reminderList.length,
         itemBuilder: (context, i) =>
-          ReminderTile(reminder: _reminderList[i])
+          ReminderTile(
+            reminder: _reminderList[i],
+            onLongPress: () => showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: const Text("Termin wird gelöscht?"),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Abbrechen")
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _reminderList.removeAt(i);
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: const Text("OK")
+                    ),
+                  ],
+                )
+            )
+          )
       ),
     );
   }

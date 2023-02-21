@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_application_3/util/DateTimeUtil.dart';
+import 'package:mobile_application_3/util/CountDownUtil.dart';
 
 import '../model/Reminder.dart';
 
@@ -21,8 +23,14 @@ class _ReminderScreen extends State<ReminderScreen> {
         backgroundColor: Colors.black,
       ),
       body: Center(
-        child: Text(widget.reminder.date.toIso8601String()),
-      ),
+        child: Column(
+          children: [
+            const Divider(height: 20, color: Colors.transparent),
+            Text(widget.reminder.date.toReadable()),
+            CountDownUtil.inGerman(widget.reminder.date),
+          ],
+        ),
+      )
     );
   }
 }
