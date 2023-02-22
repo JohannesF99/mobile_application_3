@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.0.17
   flutter_datetime_picker: ^1.5.1
   flutter_countdown_timer: ^4.1.0
+  sqflite: ^2.2.4+1
 
 dev_dependencies:
   flutter_test:
