@@ -18,7 +18,8 @@ create table Reminder (
   date text not null)
 '''
           );
-        });
+       }
+   );
   }
 
   Future<Reminder> insert(Reminder reminder) async {
