@@ -11,9 +11,9 @@ Future<void> main() async {
       null,
       [
         NotificationChannel(
-            channelKey: 'basic_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
+            channelKey: 'default',
+            channelName: 'Default Notifications',
+            channelDescription: 'Default Notification Channel for General Information',
             defaultColor: Colors.black,
             ledColor: Colors.white
         )
