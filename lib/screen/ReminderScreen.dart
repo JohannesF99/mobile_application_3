@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/util/DateTimeUtil.dart';
 import 'package:mobile_application_3/util/CountDownUtil.dart';
+import 'package:mobile_application_3/widget/DifficultyCircle.dart';
 
 import '../model/Reminder.dart';
 
@@ -28,6 +29,15 @@ class _ReminderScreen extends State<ReminderScreen> {
             const Divider(height: 20, color: Colors.transparent),
             Text(widget.reminder.date.toReadable()),
             CountDownUtil.inGerman(widget.reminder.date),
+            const Divider(height: 20, color: Colors.transparent),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Schwierigkeit der Klausur:"),
+                const Divider(indent: 10, color: Colors.transparent),
+                DifficultyCircle(difficulty: widget.reminder.difficulty),
+              ],
+            )
           ],
         ),
       )
