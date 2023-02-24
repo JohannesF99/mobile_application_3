@@ -5,7 +5,9 @@ import 'package:mobile_application_3/util/DateTimeUtil.dart';
 import '../model/Reminder.dart';
 
 class NewReminderScreen extends StatefulWidget{
-  const NewReminderScreen({super.key});
+  const NewReminderScreen({super.key, required this.existing});
+
+  final List<String> existing;
 
   @override
   State<StatefulWidget> createState() => _NewReminderScreen();
@@ -95,6 +97,9 @@ class _NewReminderScreen extends State<NewReminderScreen> {
       ),
     );
   }
-  
-  bool _areFieldsEmpty() => _nameController.text.trim().isEmpty || _date == null;
+
+  bool _areFieldsEmpty() =>
+      _nameController.text.trim().isEmpty ||
+      widget.existing.contains(_nameController.text.trim()) ||
+      _date == null;
 }

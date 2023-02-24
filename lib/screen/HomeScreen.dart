@@ -37,7 +37,9 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: Colors.white,
         onPressed: () async {
           final Reminder? newReminder = await Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const NewReminderScreen())
+              MaterialPageRoute(builder: (_) => NewReminderScreen(
+                  existing: _reminderList.map((e) => e.title).toList()
+              ))
           );
           if (newReminder != null) {
             final rem = await db.insert(newReminder);
