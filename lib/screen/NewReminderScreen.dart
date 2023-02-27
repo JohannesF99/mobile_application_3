@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/util/DateTimeUtil.dart';
+import 'package:mobile_application_3/widget/NoteList.dart';
 
+import '../database/ReminderDB.dart';
+import '../model/Note.dart';
 import '../model/Reminder.dart';
 
 class NewReminderScreen extends StatefulWidget{
@@ -13,12 +17,16 @@ class NewReminderScreen extends StatefulWidget{
 
 class _NewReminderScreen extends State<NewReminderScreen> {
 
+  final _reminderDb = ReminderDB();
+  final _noteDb = NoteDB();
+  final _notes = List<Note>.empty(growable: true);
   final _nameController = TextEditingController();
   DateTime? _date;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text("Neuen Termin hinzufügen"),
@@ -26,7 +34,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -79,16 +87,27 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               const Spacer()
             ],
           ),
+          const Divider(height: 20, color: Colors.transparent),
+          NoteList(notes: _notes),
           const Spacer(),
-          TextButton(
-            onPressed: _areFieldsEmpty() ? null : () {
-              final reminder = Reminder(
-                  title: _nameController.text.trim(),
-                  date: _date!
-              );
-              Navigator.pop(context, reminder);
-            },
-            child: const Text("Speichern")
+          Center(
+            child: TextButton(
+                onPressed: _areFieldsEmpty() ? null : () async {
+                  final reminder = Reminder(
+                      title: _nameController.text.trim(),
+                      date: _date!
+                  );
+                  final id = await _persistReminder(reminder);
+                  if (id == 0) {
+                    Future.delayed(Duration.zero).whenComplete(() => ReminderDB.showError(context));
+                    return;
+                  }
+                  final errorsOccurred = await _persistNotes(_notes, id);
+                  errorsOccurred ? Future.delayed(Duration.zero).whenComplete(() => NoteDB.showError(context)) : null;
+                  Future.delayed(Duration.zero).whenComplete(() => Navigator.pop(context, reminder));
+                },
+                child: const Text("Speichern")
+            ),
           ),
           const Divider(height: 30, color: Colors.transparent)
         ],
@@ -97,4 +116,16 @@ class _NewReminderScreen extends State<NewReminderScreen> {
   }
   
   bool _areFieldsEmpty() => _nameController.text.trim().isEmpty || _date == null;
+
+  Future<int> _persistReminder(Reminder reminder) async =>
+      (await _reminderDb.insert(reminder)).id ?? 0;
+
+  Future<bool> _persistNotes(List<Note> notes, int id) async {
+    final idList = notes.map((e) => e.setReminderId(id)).toList();
+    bool errorsOccurred = false;
+    for (var note in idList) {
+      ((await _noteDb.insert(note)).id ?? 0) == 0 ? errorsOccurred = true : null;
+    }
+    return errorsOccurred;
+  }
 }
