@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/util/DateTimeUtil.dart';
 import 'package:mobile_application_3/util/CountDownUtil.dart';
+import 'package:mobile_application_3/widget/DifficultyCircle.dart';
+import 'package:mobile_application_3/widget/NotificationList.dart';
+
 
 import '../model/Reminder.dart';
 
@@ -14,6 +17,7 @@ class ReminderScreen extends StatefulWidget{
 }
 
 class _ReminderScreen extends State<ReminderScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +30,24 @@ class _ReminderScreen extends State<ReminderScreen> {
         child: Column(
           children: [
             const Divider(height: 20, color: Colors.transparent),
-            Text(widget.reminder.date.toReadable()),
+            Text(widget.reminder.date.toReadable(time: true)),
             CountDownUtil.inGerman(widget.reminder.date),
+            const Divider(height: 20, color: Colors.transparent),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Schwierigkeit der Klausur:"),
+                const Divider(indent: 10, color: Colors.transparent),
+                DifficultyCircle(difficulty: widget.reminder.difficulty),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("Eingestellte Benachrichtigungen:"),
+                NotificationList(channel: widget.reminder.title),
+              ],
+            )
           ],
         ),
       )
