@@ -51,7 +51,7 @@ class _ReminderScreen extends State<ReminderScreen> {
                 const Text("Eingestellte Benachrichtigungen:"),
                 NotificationList(channel: widget.reminder.title),
               ],
-            )
+            ),
             const Divider(height: 20, color: Colors.transparent),
             FutureBuilder(
               future: NoteDB().getNotesForReminder(widget.reminder.id!),
@@ -64,7 +64,8 @@ class _ReminderScreen extends State<ReminderScreen> {
                   );
                 }
                 return const Center(child: CircularProgressIndicator());
-              }),
+              }
+            ),
           ],
         ),
       )

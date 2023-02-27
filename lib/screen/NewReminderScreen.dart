@@ -9,6 +9,7 @@ import 'package:mobile_application_3/widget/DifficultyCircle.dart';
 import '../database/ReminderDB.dart';
 import '../model/Note.dart';
 import '../model/Reminder.dart';
+import '../util/Notifier.dart';
 
 class NewReminderScreen extends StatefulWidget{
   const NewReminderScreen({super.key, required this.existing});
@@ -138,6 +139,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                     Future.delayed(Duration.zero).whenComplete(() => ReminderDB.showError(context));
                     return;
                   }
+                  Notifier.create(reminder);
                   final errorsOccurred = await _persistNotes(_notes, id);
                   errorsOccurred ? Future.delayed(Duration.zero).whenComplete(() => NoteDB.showError(context)) : null;
                   Future.delayed(Duration.zero).whenComplete(() => Navigator.pop(context, reminder));

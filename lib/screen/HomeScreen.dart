@@ -37,10 +37,7 @@ class _HomeScreen extends State<HomeScreen> {
               ))
           );
           setState(() {
-            newReminder == null ? null : () {
-              _reminderList.add(newReminder);
-              Notifier.create(newReminder);
-            };
+            newReminder == null ? null : _reminderList.add(newReminder);
           });
         },
         child: const Icon(Icons.add),
