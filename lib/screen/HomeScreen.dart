@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/screen/NewReminderScreen.dart';
+import 'package:mobile_application_3/util/Notifier.dart';
 import 'package:mobile_application_3/widget/ReminderTile.dart';
 
 import '../database/ReminderDB.dart';
@@ -37,13 +38,16 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: Colors.white,
         onPressed: () async {
           final Reminder? newReminder = await Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const NewReminderScreen())
+              MaterialPageRoute(builder: (_) => NewReminderScreen(
+                  existing: _reminderList.map((e) => e.title).toList()
+              ))
           );
           if (newReminder != null) {
             final rem = await db.insert(newReminder);
             if (rem.id == 0) {
               Future.delayed(Duration.zero).then((value) => ReminderDB.showError(context));
             } else {
+              Notifier.create(rem);
               setState(() {
                 _reminderList.add(rem);
               });
@@ -75,13 +79,14 @@ class _HomeScreen extends State<HomeScreen> {
                                     onPressed: () async {
                                       final affected = await db.delete(_reminderList[i].id!);
                                       if (affected == 0) {
-                                        Future.delayed(Duration.zero).then((value) => ReminderDB.showError(context));
+                                        Future.delayed(Duration.zero).whenComplete(() => ReminderDB.showError(context));
                                       } else {
+                                        Notifier.delete(_reminderList[i]);
                                         setState(() {
                                           _reminderList.removeAt(i);
                                         });
                                       }
-                                      Future.delayed(Duration.zero).then((value) => Navigator.pop(context));
+                                      Future.delayed(Duration.zero).whenComplete(() => Navigator.pop(context));
                                     },
                                     child: const Text("OK")
                                 ),

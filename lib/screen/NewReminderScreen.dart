@@ -7,7 +7,9 @@ import 'package:mobile_application_3/widget/DifficultyCircle.dart';
 import '../model/Reminder.dart';
 
 class NewReminderScreen extends StatefulWidget{
-  const NewReminderScreen({super.key});
+  const NewReminderScreen({super.key, required this.existing});
+
+  final List<String> existing;
 
   @override
   State<StatefulWidget> createState() => _NewReminderScreen();
@@ -77,7 +79,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               ),
               const Spacer(),
               SizedBox(
-                child: _date != null ? Text(_date!.toReadable()) : const Text("Noch kein Datum festgelegt."),
+                child: _date != null ? Text(_date!.toReadable(time: true)) : const Text("Noch kein Datum festgelegt."),
               ),
               const Spacer()
             ],
@@ -129,6 +131,9 @@ class _NewReminderScreen extends State<NewReminderScreen> {
       ),
     );
   }
-  
-  bool _areFieldsEmpty() => _nameController.text.trim().isEmpty || _date == null || _value == null;
+
+  bool _areFieldsEmpty() =>
+      _nameController.text.trim().isEmpty ||
+      widget.existing.contains(_nameController.text.trim()) ||
+      _date == null;
 }

@@ -19,7 +19,8 @@ create table Reminder (
   difficulty text not null)
 '''
           );
-        });
+       }
+   );
   }
 
   Future<Reminder> insert(Reminder reminder) async {
