@@ -21,7 +21,7 @@ class NoteDB {
 create table $_name ( 
   _id integer primary key autoincrement, 
   reminderId integer not null,
-  title text unique not null,
+  title text not null,
   body text not null)
 '''
           );
