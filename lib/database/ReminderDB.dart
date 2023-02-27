@@ -11,7 +11,7 @@ class ReminderDB {
   factory ReminderDB() => _instance;
 
   ReminderDB._internal();
-  
+
   Future open() async {
     _db = await openDatabase(
         "${_name.toLowerCase()}.db",
@@ -21,10 +21,12 @@ class ReminderDB {
 create table $_name ( 
   _id integer primary key autoincrement, 
   title text unique not null,
-  date text not null)
+  date text not null,
+  difficulty text not null)
 '''
           );
-        });
+       }
+   );
   }
 
   Future<Reminder> insert(Reminder reminder) async {
@@ -34,7 +36,7 @@ create table $_name (
 
   Future<Reminder> getReminder(String title) async {
     List<Map<String, Object?>> maps = await _db.query(_name,
-        columns: ["_id", "title", "date"],
+        columns: ["_id", "title", "date", "difficulty"],
         where: 'title = ?',
         whereArgs: [title]);
     return Reminder.fromMap(maps.first);
@@ -42,7 +44,7 @@ create table $_name (
 
   Future<List<Reminder>> getAll() async {
     List<Map<String, Object?>> maps = await _db.query(_name,
-        columns: ["_id", "title", "date"]);
+        columns: ["_id", "title", "date", "difficulty"]);
     return maps.map((e) => Reminder.fromMap(e)).toList();
   }
 

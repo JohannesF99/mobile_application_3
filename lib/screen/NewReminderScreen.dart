@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:mobile_application_3/database/NoteDB.dart';
+import 'package:mobile_application_3/enum/Difficulty.dart';
 import 'package:mobile_application_3/util/DateTimeUtil.dart';
 import 'package:mobile_application_3/widget/NoteList.dart';
+import 'package:mobile_application_3/widget/DifficultyCircle.dart';
 
 import '../database/ReminderDB.dart';
 import '../model/Note.dart';
 import '../model/Reminder.dart';
 
 class NewReminderScreen extends StatefulWidget{
-  const NewReminderScreen({super.key});
+  const NewReminderScreen({super.key, required this.existing});
+
+  final List<String> existing;
 
   @override
   State<StatefulWidget> createState() => _NewReminderScreen();
@@ -21,6 +25,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
   final _noteDb = NoteDB();
   final _notes = List<Note>.empty(growable: true);
   final _nameController = TextEditingController();
+  Difficulty? _value;
   DateTime? _date;
 
   @override
@@ -82,9 +87,39 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               ),
               const Spacer(),
               SizedBox(
-                child: _date != null ? Text(_date!.toReadable()) : const Text("Noch kein Datum festgelegt."),
+                child: _date != null ? Text(_date!.toReadable(time: true)) : const Text("Noch kein Datum festgelegt."),
               ),
               const Spacer()
+            ],
+          ),
+          const Divider(height: 30, color: Colors.transparent),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("Potentielle Schwierigkeit der Klausur:"),
+              const Divider(indent: 20, color: Colors.transparent),
+              DropdownButton(
+                  value: _value,
+                  items: const [
+                    DropdownMenuItem(
+                      value: Difficulty.easy,
+                      child: DifficultyCircle(difficulty: Difficulty.easy)
+                    ),
+                    DropdownMenuItem(
+                      value: Difficulty.moderate,
+                      child: DifficultyCircle(difficulty: Difficulty.moderate)
+                    ),
+                    DropdownMenuItem(
+                      value: Difficulty.difficult,
+                      child: DifficultyCircle(difficulty: Difficulty.difficult)
+                    ),
+                  ],
+                  onChanged: (value){
+                    setState(() {
+                      _value = value!;
+                    });
+                  },
+              )
             ],
           ),
           const Divider(height: 20, color: Colors.transparent),
@@ -95,7 +130,8 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                 onPressed: _areFieldsEmpty() ? null : () async {
                   final reminder = Reminder(
                       title: _nameController.text.trim(),
-                      date: _date!
+                      date: _date!,
+                      difficulty: _value!,
                   );
                   final id = await _persistReminder(reminder);
                   if (id == 0) {
@@ -114,8 +150,11 @@ class _NewReminderScreen extends State<NewReminderScreen> {
       ),
     );
   }
-  
-  bool _areFieldsEmpty() => _nameController.text.trim().isEmpty || _date == null;
+
+  bool _areFieldsEmpty() =>
+      _nameController.text.trim().isEmpty ||
+      widget.existing.contains(_nameController.text.trim()) ||
+      _date == null;
 
   Future<int> _persistReminder(Reminder reminder) async =>
       (await _reminderDb.insert(reminder)).id ?? 0;

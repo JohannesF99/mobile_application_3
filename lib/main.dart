@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/database/ReminderDB.dart';
@@ -7,6 +8,19 @@ import 'package:mobile_application_3/util/SharedPrefs.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+            channelKey: 'default',
+            channelName: 'Default Notifications',
+            channelDescription: 'Default Notification Channel for General Information',
+            defaultColor: Colors.black,
+            ledColor: Colors.white
+        )
+      ],
+      debug: true
+  );
   final isFirst = await SharedPrefs.getBool("firstRun") ?? true;
   await ReminderDB().open();
   await NoteDB().open();

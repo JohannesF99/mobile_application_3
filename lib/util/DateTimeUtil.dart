@@ -1,6 +1,9 @@
 extension DT on DateTime {
-  String toReadable(){
-    return "am $day.$month.$year, um $hour:$minute Uhr";
+  String toReadable({required bool time}){
+    var output = "am ${day.getNumberAddZero()}.${month.getNumberAddZero()}."
+        "${year.getNumberAddZero()}";
+    return !time ? output : "$output, um ${hour.getNumberAddZero()}:"
+        "${minute.getNumberAddZero()} Uhr";
   }
 
   int getRemainingMilliSeconds() {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/screen/NewReminderScreen.dart';
+import 'package:mobile_application_3/util/Notifier.dart';
 import 'package:mobile_application_3/widget/ReminderTile.dart';
 
 import '../database/ReminderDB.dart';
@@ -31,10 +32,15 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: Colors.white,
         onPressed: () async {
           final Reminder? newReminder = await Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const NewReminderScreen())
+              MaterialPageRoute(builder: (_) => NewReminderScreen(
+                  existing: _reminderList.map((e) => e.title).toList()
+              ))
           );
           setState(() {
-            newReminder != null ? _reminderList.add(newReminder) : null;
+            newReminder == null ? null : () {
+              _reminderList.add(newReminder);
+              Notifier.create(newReminder);
+            };
           });
         },
         child: const Icon(Icons.add),
@@ -64,6 +70,7 @@ class _HomeScreen extends State<HomeScreen> {
                                       if (affected == 0) {
                                         Future.delayed(Duration.zero).whenComplete(() => ReminderDB.showError(context));
                                       } else {
+                                        Notifier.delete(_reminderList[i]);
                                         final notes = await _noteDb.getNotesForReminder(_reminderList[i].id!);
                                         for (var element in notes) {
                                           _noteDb.delete(element.id!);

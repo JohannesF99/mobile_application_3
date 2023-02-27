@@ -3,6 +3,9 @@ import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/util/DateTimeUtil.dart';
 import 'package:mobile_application_3/util/CountDownUtil.dart';
 import 'package:mobile_application_3/widget/NoteList.dart';
+import 'package:mobile_application_3/widget/DifficultyCircle.dart';
+import 'package:mobile_application_3/widget/NotificationList.dart';
+
 
 import '../model/Note.dart';
 import '../model/Reminder.dart';
@@ -31,8 +34,24 @@ class _ReminderScreen extends State<ReminderScreen> {
         child: Column(
           children: [
             const Divider(height: 20, color: Colors.transparent),
-            Text(widget.reminder.date.toReadable()),
+            Text(widget.reminder.date.toReadable(time: true)),
             CountDownUtil.inGerman(widget.reminder.date),
+            const Divider(height: 20, color: Colors.transparent),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Schwierigkeit der Klausur:"),
+                const Divider(indent: 10, color: Colors.transparent),
+                DifficultyCircle(difficulty: widget.reminder.difficulty),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("Eingestellte Benachrichtigungen:"),
+                NotificationList(channel: widget.reminder.title),
+              ],
+            )
             const Divider(height: 20, color: Colors.transparent),
             FutureBuilder(
               future: NoteDB().getNotesForReminder(widget.reminder.id!),
