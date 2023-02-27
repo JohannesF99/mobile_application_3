@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/screen/NewReminderScreen.dart';
 import 'package:mobile_application_3/widget/ReminderTile.dart';
 
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
 
   final _reminderDb = ReminderDB();
+  final _noteDb = NoteDB();
   late List<Reminder> _reminderList;
 
   @override
@@ -60,13 +62,17 @@ class _HomeScreen extends State<HomeScreen> {
                                     onPressed: () async {
                                       final affected = await _reminderDb.delete(_reminderList[i].id!);
                                       if (affected == 0) {
-                                        Future.delayed(Duration.zero).then((value) => ReminderDB.showError(context));
+                                        Future.delayed(Duration.zero).whenComplete(() => ReminderDB.showError(context));
                                       } else {
+                                        final notes = await _noteDb.getNotesForReminder(_reminderList[i].id!);
+                                        for (var element in notes) {
+                                          _noteDb.delete(element.id!);
+                                        }
                                         setState(() {
                                           _reminderList.removeAt(i);
                                         });
                                       }
-                                      Future.delayed(Duration.zero).then((value) => Navigator.pop(context));
+                                      Future.delayed(Duration.zero).whenComplete(() => Navigator.pop(context));
                                     },
                                     child: const Text("OK")
                                 ),
