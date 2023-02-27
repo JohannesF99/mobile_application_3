@@ -15,7 +15,8 @@ class ReminderDB{
 create table Reminder ( 
   _id integer primary key autoincrement, 
   title text unique not null,
-  date text not null)
+  date text not null,
+  difficulty text not null)
 '''
           );
        }
@@ -29,7 +30,7 @@ create table Reminder (
 
   Future<Reminder> getReminder(String title) async {
     List<Map<String, Object?>> maps = await db.query("Reminder",
-        columns: ["_id", "title", "date"],
+        columns: ["_id", "title", "date", "difficulty"],
         where: 'title = ?',
         whereArgs: [title]);
     return Reminder.fromMap(maps.first);
@@ -37,7 +38,7 @@ create table Reminder (
 
   Future<List<Reminder>> getAll() async {
     List<Map<String, Object?>> maps = await db.query("Reminder",
-        columns: ["_id", "title", "date"]);
+        columns: ["_id", "title", "date", "difficulty"]);
     return maps.map((e) => Reminder.fromMap(e)).toList();
   }
 

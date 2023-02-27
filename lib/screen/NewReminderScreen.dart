@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:mobile_application_3/enum/Difficulty.dart';
 import 'package:mobile_application_3/util/DateTimeUtil.dart';
+import 'package:mobile_application_3/widget/DifficultyCircle.dart';
 
 import '../model/Reminder.dart';
 
@@ -16,6 +18,7 @@ class NewReminderScreen extends StatefulWidget{
 class _NewReminderScreen extends State<NewReminderScreen> {
 
   final _nameController = TextEditingController();
+  Difficulty? _value;
   DateTime? _date;
 
   @override
@@ -81,12 +84,43 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               const Spacer()
             ],
           ),
+          const Divider(height: 30, color: Colors.transparent),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("Potentielle Schwierigkeit der Klausur:"),
+              const Divider(indent: 20, color: Colors.transparent),
+              DropdownButton(
+                  value: _value,
+                  items: const [
+                    DropdownMenuItem(
+                      value: Difficulty.easy,
+                      child: DifficultyCircle(difficulty: Difficulty.easy)
+                    ),
+                    DropdownMenuItem(
+                      value: Difficulty.moderate,
+                      child: DifficultyCircle(difficulty: Difficulty.moderate)
+                    ),
+                    DropdownMenuItem(
+                      value: Difficulty.difficult,
+                      child: DifficultyCircle(difficulty: Difficulty.difficult)
+                    ),
+                  ],
+                  onChanged: (value){
+                    setState(() {
+                      _value = value!;
+                    });
+                  },
+              )
+            ],
+          ),
           const Spacer(),
           TextButton(
             onPressed: _areFieldsEmpty() ? null : () {
               final reminder = Reminder(
                   title: _nameController.text.trim(),
-                  date: _date!
+                  date: _date!,
+                  difficulty: _value!,
               );
               Navigator.pop(context, reminder);
             },

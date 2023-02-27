@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_application_3/widget/DifficultyCircle.dart';
 
 import '../model/Reminder.dart';
 import '../screen/ReminderScreen.dart';
@@ -22,9 +23,18 @@ class ReminderTile extends StatelessWidget{
       child: SizedBox(
         height: MediaQuery.of(context).size.height/10,
         child: Card(
-          child: Center(
-            child: Text(reminder.title),
-          ),
+          child: Stack(
+            children: [
+              Positioned(
+                child: Center(child: Text(reminder.title))
+              ),
+              Positioned(
+                bottom: 10,
+                right: 10,
+                child: DifficultyCircle(difficulty: reminder.difficulty),
+              ),
+            ],
+          )
         ),
       ),
     );
