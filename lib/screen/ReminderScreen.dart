@@ -39,7 +39,10 @@ class _ReminderScreen extends State<ReminderScreen> {
               builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
                 if(snapshot.hasData && snapshot.connectionState == ConnectionState.done){
                   final notes = snapshot.data!;
-                  return NoteList(notes: notes);
+                  return NoteList(
+                    notes: notes,
+                    reminderId: widget.reminder.id!,
+                  );
                 }
                 return const Center(child: CircularProgressIndicator());
               }),
