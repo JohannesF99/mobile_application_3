@@ -30,7 +30,8 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             child: TextButton(
               child: const Text("Los geht's!"),
               onPressed: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (_) => const HomeScreen())
+                  MaterialPageRoute(builder: (_) => HomeScreen(
+                    onLocalChange: (localFromHomescreen) {}))
               ),
             ),
           ),

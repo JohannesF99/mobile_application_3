@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/screen/NewReminderScreen.dart';
 import 'package:mobile_application_3/widget/ReminderTile.dart';
+import 'package:mobile_application_3/screen/LanguageSelect.dart';
 import '../model/Reminder.dart';
 
 class HomeScreen extends StatefulWidget {
 
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.onLocalChange});
+
+  final void Function(Locale locale) onLocalChange;
 
 
   @override
@@ -28,19 +31,24 @@ class _HomeScreen extends State<HomeScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.yellow,
               ),
               child: Text("Einstellungen"),
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.language,
               ),
               title: const Text('Sprache'),
-              onTap:(){
-
+              onTap:() async {
+                final languageCode = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LanguageSelectScreen()),
+                );
+                widget.onLocalChange(Locale(languageCode.toString()));
+                //Navigator.pop(context);
               }
             )
           ],

@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobile_application_3/screen/HomeScreen.dart';
 import 'package:mobile_application_3/screen/WelcomeScreen.dart';
 import 'package:mobile_application_3/util/SharedPrefs.dart';
-import 'l10n/l10n.dart';
+import 'localization/L10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
@@ -13,14 +13,19 @@ Future<void> main() async {
   SharedPrefs.saveBool("firstRun", false);
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.isFirst});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key, required this.isFirst});
   final bool isFirst;
-  Locale _locale =  Locale('en');
 
   @override
-  Widget build(BuildContext context) {
+  State<StatefulWidget> createState() => _MyApp();
+}
 
+class _MyApp extends State<MyApp>{
+
+  Locale _locale = Locale('en');
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mobile Application 3',
       debugShowCheckedModeBanner: false,
@@ -33,7 +38,13 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: isFirst ? const WelcomeScreen() : const HomeScreen(),
+      home: widget.isFirst ? const WelcomeScreen() : HomeScreen(
+        onLocalChange: (localFromHomescreen){
+          setState(() {
+            _locale = localFromHomescreen;
+          });
+        },
+      ),
     );
   }
 }
