@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:mobile_application_3/util/DateTimeUtil.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../model/Reminder.dart';
 
 class NewReminderScreen extends StatefulWidget{
@@ -21,7 +21,9 @@ class _NewReminderScreen extends State<NewReminderScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text("Neuen Termin hinzufügen"),
+        title: Text(
+          AppLocalizations.of(context)!.create_new_appointment
+        ),
         backgroundColor: Colors.black,
       ),
       body: Column(

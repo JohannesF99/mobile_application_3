@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/screen/NewReminderScreen.dart';
 import 'package:mobile_application_3/widget/ReminderTile.dart';
-
 import '../model/Reminder.dart';
 
 class HomeScreen extends StatefulWidget {
+
   const HomeScreen({super.key});
+
 
   @override
   State<HomeScreen> createState() => _HomeScreen();
 }
 
 class _HomeScreen extends State<HomeScreen> {
-
   final _reminderList = <Reminder>[];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      title: const Text("Mobile Application 3"),
+
+      backgroundColor: Colors.black,
+    ),
       backgroundColor: Colors.black,
       drawer: Drawer(
-
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -35,18 +39,14 @@ class _HomeScreen extends State<HomeScreen> {
                 Icons.language,
               ),
               title: const Text('Sprache'),
-              onTap: (){
-                Navigator.pop(context);
+              onTap:(){
+
               }
             )
           ],
         ),
       ),
-      appBar: AppBar(
-        title: const Text("Mobile Application 3"),
 
-        backgroundColor: Colors.black,
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () async {

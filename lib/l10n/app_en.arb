@@ -1,0 +1,11 @@
+{
+    "language": "English",
+    "@language":{
+        "description": "The Current Language"
+    },
+
+    "create_new_appointment": "create new appointment",
+    "@create_new_appointment":{
+        "description": "create new appointment"
+    }
+}
