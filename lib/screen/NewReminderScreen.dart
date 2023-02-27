@@ -74,7 +74,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               ),
               const Spacer(),
               SizedBox(
-                child: _date != null ? Text(_date!.toReadable()) : const Text("Noch kein Datum festgelegt."),
+                child: _date != null ? Text(_date!.toReadable(time: true)) : const Text("Noch kein Datum festgelegt."),
               ),
               const Spacer()
             ],
