@@ -21,6 +21,17 @@ Future<void> main() async {
       ],
       debug: true
   );
+  await AwesomeNotifications().requestPermissionToSendNotifications(
+    permissions: [
+      NotificationPermission.PreciseAlarms,
+      NotificationPermission.Sound,
+      NotificationPermission.Vibration,
+      NotificationPermission.Alert,
+      NotificationPermission.Badge,
+      NotificationPermission.FullScreenIntent,
+      NotificationPermission.Light,
+    ]
+  );
   final isFirst = await SharedPrefs.getBool("firstRun") ?? true;
   await ReminderDB().open();
   await NoteDB().open();
