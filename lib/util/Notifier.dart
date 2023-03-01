@@ -10,7 +10,6 @@ class Notifier{
         channelName: rem.title,
         channelDescription: rem.title
     ));
-    //TODO
     [5, 15, 25]
         .map((e) => rem.date.subtract(Duration(seconds: e)))
         .forEach((e) async => AwesomeNotifications().createNotification(

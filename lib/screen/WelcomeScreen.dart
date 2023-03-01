@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_application_3/database/ReminderDB.dart';
 import 'package:mobile_application_3/screen/HomeScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key, required this.db});
-
-  final ReminderDB db;
+  const WelcomeScreen({super.key});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreen();
@@ -33,7 +30,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             child: TextButton(
               child: const Text("Los geht's!"),
               onPressed: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (_) => HomeScreen(db: widget.db))
+                  MaterialPageRoute(builder: (_) => const HomeScreen())
               ),
             ),
           ),

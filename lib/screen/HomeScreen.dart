@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/screen/NewReminderScreen.dart';
 import 'package:mobile_application_3/util/Notifier.dart';
 import 'package:mobile_application_3/widget/ReminderTile.dart';
@@ -7,9 +8,7 @@ import '../database/ReminderDB.dart';
 import '../model/Reminder.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.db});
-
-  final ReminderDB db;
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreen();
@@ -17,14 +16,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
 
-  late final ReminderDB db;
+  final _reminderDb = ReminderDB();
+  final _noteDb = NoteDB();
   late List<Reminder> _reminderList;
-
-  @override
-  void initState() {
-    db = widget.db;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,22 +36,14 @@ class _HomeScreen extends State<HomeScreen> {
                   existing: _reminderList.map((e) => e.title).toList()
               ))
           );
-          if (newReminder != null) {
-            final rem = await db.insert(newReminder);
-            if (rem.id == 0) {
-              Future.delayed(Duration.zero).then((value) => ReminderDB.showError(context));
-            } else {
-              Notifier.create(rem);
-              setState(() {
-                _reminderList.add(rem);
-              });
-            }
-          }
+          setState(() {
+            newReminder == null ? null : _reminderList.add(newReminder);
+          });
         },
         child: const Icon(Icons.add),
       ),
       body: FutureBuilder(
-        future: db.getAll(),
+        future: _reminderDb.getAll(),
         builder: (BuildContext context, AsyncSnapshot<List<Reminder>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             _reminderList = snapshot.data ?? [];
@@ -77,11 +63,15 @@ class _HomeScreen extends State<HomeScreen> {
                                 ),
                                 TextButton(
                                     onPressed: () async {
-                                      final affected = await db.delete(_reminderList[i].id!);
+                                      final affected = await _reminderDb.delete(_reminderList[i].id!);
                                       if (affected == 0) {
                                         Future.delayed(Duration.zero).whenComplete(() => ReminderDB.showError(context));
                                       } else {
                                         Notifier.delete(_reminderList[i]);
+                                        final notes = await _noteDb.getNotesForReminder(_reminderList[i].id!);
+                                        for (var element in notes) {
+                                          _noteDb.delete(element.id!);
+                                        }
                                         setState(() {
                                           _reminderList.removeAt(i);
                                         });

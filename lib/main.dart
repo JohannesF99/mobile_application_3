@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/database/ReminderDB.dart';
 import 'package:mobile_application_3/screen/HomeScreen.dart';
 import 'package:mobile_application_3/screen/WelcomeScreen.dart';
@@ -21,9 +22,9 @@ Future<void> main() async {
       debug: true
   );
   final isFirst = await SharedPrefs.getBool("firstRun") ?? true;
-  final db = ReminderDB();
-  await db.open();
-  runApp(MyApp(isFirst: isFirst, db: db));
+  await ReminderDB().open();
+  await NoteDB().open();
+  runApp(MyApp(isFirst: isFirst));
   SharedPrefs.saveBool("firstRun", false);
 }
 
@@ -31,11 +32,9 @@ class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
     required this.isFirst,
-    required this.db
   });
 
   final bool isFirst;
-  final ReminderDB db;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
       title: 'Mobile Application 3',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: isFirst ? WelcomeScreen(db: db) : HomeScreen(db: db),
+      home: isFirst ? const WelcomeScreen() : const HomeScreen(),
     );
   }
 }
