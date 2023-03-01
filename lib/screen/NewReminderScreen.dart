@@ -156,6 +156,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
   bool _areFieldsEmpty() =>
       _nameController.text.trim().isEmpty ||
       widget.existing.contains(_nameController.text.trim()) ||
+      _value == null ||
       _date == null;
 
   Future<int> _persistReminder(Reminder reminder) async =>
