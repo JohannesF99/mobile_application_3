@@ -23,30 +23,43 @@ Future<void> main() async {
       ],
       debug: true
   );
+
   final isFirst = await SharedPrefs.getBool("firstRun") ?? true;
   final db = ReminderDB();
   await db.open();
-  runApp(MyApp(isFirst: isFirst, db: db));
+  final language = await SharedPrefs.getString("language") ?? "en";
+  runApp(MyApp(isFirst: isFirst, db: db, language: language));
   SharedPrefs.saveBool("firstRun", false);
+
+
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({
     super.key,
     required this.isFirst,
-    required this.db
+    required this.db,
+    required this.language
   });
 
   final bool isFirst;
   final ReminderDB db;
+  final String language;
 
   @override
   State<StatefulWidget> createState() => _MyApp();
 }
 
-class _MyApp extends State<MyApp>{
+class _MyApp extends State<MyApp> {
 
-  Locale _locale = Locale('en');
+  late Locale _locale;
+
+  @override
+  void initState() {
+    _locale = Locale(widget.language);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,17 +68,18 @@ class _MyApp extends State<MyApp>{
       theme: ThemeData.dark(),
       locale: _locale,
       supportedLocales: L10n.all,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: widget.isFirst ? WelcomeScreen(db: db) : HomeScreen(
-        db: db,
+      home: widget.isFirst ? WelcomeScreen(db: widget.db) : HomeScreen(
+        db: widget.db,
         onLocalChange: (localFromHomescreen){
           setState(() {
             _locale = localFromHomescreen;
+            SharedPrefs.saveString("language", localFromHomescreen.toString());
           });
         },
       ),

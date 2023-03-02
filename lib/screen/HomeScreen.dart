@@ -24,6 +24,7 @@ class _HomeScreen extends State<HomeScreen> {
 
   @override
   void initState() {
+
     db = widget.db;
     super.initState();
   }
