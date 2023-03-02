@@ -3,16 +3,22 @@ import 'package:sqflite/sqflite.dart';
 
 import '../model/Reminder.dart';
 
-class ReminderDB{
-  late Database db;
+class ReminderDB {
+  final _name = "Reminder";
+  late Database _db;
+  static final ReminderDB _instance = ReminderDB._internal();
+
+  factory ReminderDB() => _instance;
+
+  ReminderDB._internal();
 
   Future open() async {
-    db = await openDatabase(
-        "reminder.db",
+    _db = await openDatabase(
+        "${_name.toLowerCase()}.db",
         version: 1,
         onCreate: (Database db, int version) async {
           await db.execute('''
-create table Reminder ( 
+create table $_name ( 
   _id integer primary key autoincrement, 
   title text unique not null,
   date text not null,
@@ -24,12 +30,12 @@ create table Reminder (
   }
 
   Future<Reminder> insert(Reminder reminder) async {
-    reminder.id = await db.insert("Reminder", reminder.toMap());
+    reminder.id = await _db.insert(_name, reminder.toMap());
     return reminder;
   }
 
   Future<Reminder> getReminder(String title) async {
-    List<Map<String, Object?>> maps = await db.query("Reminder",
+    List<Map<String, Object?>> maps = await _db.query(_name,
         columns: ["_id", "title", "date", "difficulty"],
         where: 'title = ?',
         whereArgs: [title]);
@@ -37,25 +43,25 @@ create table Reminder (
   }
 
   Future<List<Reminder>> getAll() async {
-    List<Map<String, Object?>> maps = await db.query("Reminder",
+    List<Map<String, Object?>> maps = await _db.query(_name,
         columns: ["_id", "title", "date", "difficulty"]);
     return maps.map((e) => Reminder.fromMap(e)).toList();
   }
 
   Future<int> delete(int id) async {
-    return await db.delete("Reminder", where: '_id = ?', whereArgs: [id]);
+    return await _db.delete(_name, where: '_id = ?', whereArgs: [id]);
   }
 
   Future<int> update(Reminder reminder) async {
-    return await db.update(
-        "Reminder",
+    return await _db.update(
+        _name,
         reminder.toMap(),
         where: '_id = ?',
         whereArgs: [reminder.id]
     );
   }
 
-  Future close() async => db.close();
+  Future close() async => _db.close();
   
   static void showError(BuildContext context){
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

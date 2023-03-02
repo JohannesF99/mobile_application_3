@@ -1,6 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/database/ReminderDB.dart';
 import 'package:mobile_application_3/screen/HomeScreen.dart';
 import 'package:mobile_application_3/screen/WelcomeScreen.dart';
@@ -24,26 +25,33 @@ Future<void> main() async {
       debug: true
   );
 
+  await AwesomeNotifications().requestPermissionToSendNotifications(
+    permissions: [
+      NotificationPermission.PreciseAlarms,
+      NotificationPermission.Sound,
+      NotificationPermission.Vibration,
+      NotificationPermission.Alert,
+      NotificationPermission.Badge,
+      NotificationPermission.FullScreenIntent,
+      NotificationPermission.Light,
+    ]
+  );
   final isFirst = await SharedPrefs.getBool("firstRun") ?? true;
-  final db = ReminderDB();
-  await db.open();
+  await ReminderDB().open();
+  await NoteDB().open();
   final language = await SharedPrefs.getString("language") ?? "en";
-  runApp(MyApp(isFirst: isFirst, db: db, language: language));
+  runApp(MyApp(isFirst: isFirst, language: language));
   SharedPrefs.saveBool("firstRun", false);
-
-
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({
     super.key,
     required this.isFirst,
-    required this.db,
     required this.language
   });
 
   final bool isFirst;
-  final ReminderDB db;
   final String language;
 
   @override
@@ -74,8 +82,7 @@ class _MyApp extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: widget.isFirst ? WelcomeScreen(db: widget.db) : HomeScreen(
-        db: widget.db,
+      home: widget.isFirst ? WelcomeScreen() : HomeScreen(
         onLocalChange: (localFromHomescreen){
           setState(() {
             _locale = localFromHomescreen;
