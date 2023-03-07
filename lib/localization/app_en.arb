@@ -7,5 +7,140 @@
     "create_new_appointment": "create new appointment",
     "@create_new_appointment":{
         "description": "create new appointment"
-    }
+    },
+
+    "still": "still",
+        "@still":{
+            "description": "still"
+        },
+
+    "days": "days",
+        "@days":{
+            "description": "days"
+        },
+
+    "day": "day",
+        "@day":{
+            "description": "day"
+        },
+
+    "notes": "notes",
+        "@notes":{
+            "description": "notes"
+        },
+
+    "note_will_be_deleted": "note will be deleted",
+        "@note_will_be_deleted":{
+            "description": "note will be deleted"
+        },
+
+    "cancel": "cancel",
+            "@cancel":{
+                "description": "cancel"
+            },
+
+    "exam_planer": "exam planer",
+        "@exam_planer":{
+            "description": "exam planer"
+        },
+
+    "settings": "settings",
+        "@settings":{
+            "description": "settings"
+        },
+
+    "language": "language",
+        "@language":{
+            "description": "language"
+        },
+
+     "appointment_will_be_deleted": "appointment will be deleted?",
+        "@appointment_will_be_deleted":{
+            "description": "appointment will be deleted"
+        },
+
+    "languages": "languages",
+        "@languages":{
+            "description": "languages"
+        },
+
+    "appointment_name": "Appointment name",
+        "@appointment_name":{
+            "description": "Appointment name"
+        },
+
+    "the_appointment_is_in_the_past": "The appointment is in the past!",
+        "@the_appointment_is_in_the_past":{
+            "description": "The appointment is in the past!"
+        },
+
+    "no_date_set_yet": "No date set yet",
+        "@no_date_set_yet":{
+            "description": "No date set yet"
+        },
+
+    "potential_difficulty_of_the_exam": "Potential difficulty of the exam",
+        "@potential_difficulty_of_the_exam":{
+            "description": "Potential difficulty of the exam"
+        },
+
+    "save": "save",
+        "@save":{
+            "description": "save"
+        },
+
+    "difficulty_of_the_exam": "difficulty of the exam",
+        "@difficulty_of_the_exam":{
+            "description": "difficulty of the exam"
+        },
+
+    "set_notifications": "Set notifications",
+        "@set_notifications":{
+            "description": "Set notifications"
+        },
+
+    "welcome_to_Exam_Reminder": "Welcome to Exam Reminder.",
+        "@welcome_to_Exam_Reminder":{
+            "description": "Welcome to Exam Reminder."
+        },
+
+    "lets_get_started": "Let's get started!",
+        "@Lets_get_started":{
+            "description": "Let's get started!"
+        },
+
+    "notes": "Notes:",
+        "@notes":{
+            "description": "Notes"
+        },
+
+    "add_new_note": "Add new note",
+        "@add_new_note":{
+            "description": "Add new note"
+        },
+
+    "title": "title",
+        "@title":{
+            "description": "title"
+        },
+
+    "content": "content",
+        "@content":{
+            "description": "content"
+        },
+
+    "the_countdown_has_expired": "The countdown has expired",
+        "@the_countdown_has_expired":{
+            "description": "The countdown has expired."
+        },
+
+    "remaining": "remaining",
+        "@remaining":{
+            "description": "remaining."
+        },
+
+    "day_s_and": "day/s and",
+        "@day_s_and":{
+            "description": "day/s and"
+        }
 }

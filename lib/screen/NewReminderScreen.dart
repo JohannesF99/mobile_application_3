@@ -29,127 +29,190 @@ class _NewReminderScreen extends State<NewReminderScreen> {
   Difficulty? _value;
   DateTime? _date;
 
+
   @override
   Widget build(BuildContext context) {
+    //final Locale appLocale = Localizations.localeOf(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF1E202C),
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.create_new_appointment
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF1E202C),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: TextField(
-              maxLength: 25,
-              decoration: const InputDecoration(
-                  hintText: "Termin-Name"
+          Container(
+            width: 380,
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(
+                color: const Color(0xFF676f98),
               ),
-              onChanged: (_) => setState(() {}),
-              controller: _nameController,
+
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              IconButton(
-                onPressed: () async {
-                  final dateTime = await DatePicker.showDateTimePicker(context,
-                      locale: LocaleType.de,
-                      currentTime: DateTime.now(),
-                      theme: const DatePickerTheme(
-                        backgroundColor: Colors.black,
-                        doneStyle: TextStyle(
-                            color: Colors.white
-                        ),
-                        cancelStyle: TextStyle(
-                            color: Colors.white
-                        ),
-                        itemStyle: TextStyle(
-                            color: Colors.white
-                        ),
-                      )
-                  );
-                  if (dateTime == null || dateTime.isBefore(DateTime.now())) {
-                    _date = null;
-                    const alert = SnackBar(content: Text("Der Termin liegt in der Vergangenheit!"));
-                    Future.delayed(Duration.zero).then((_) => ScaffoldMessenger.of(context).showSnackBar(alert));
-                  }
-                  setState(() {
-                    dateTime != null && dateTime.isAfter(DateTime.now()) ? _date = dateTime : null;
-                  });
-                },
-                icon: const Icon(Icons.edit_calendar),
+            child:
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+              child: TextField(
+                maxLength: 25,
+                style: const TextStyle(
+                  fontSize: 22
+                ),
+                decoration: InputDecoration(
+                  counterText: "",
+                  border: InputBorder.none,
+                  hintText: AppLocalizations.of(context)!.appointment_name,
+                ),
+                onChanged: (_) => setState(() {}),
+                controller: _nameController,
               ),
-              const Spacer(),
-              SizedBox(
-                child: _date != null ? Text(_date!.toReadable(time: true)) : const Text("Noch kein Datum festgelegt."),
-              ),
-              const Spacer()
-            ],
+            )
           ),
-          const Divider(height: 30, color: Colors.transparent),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("Potentielle Schwierigkeit der Klausur:"),
-              const Divider(indent: 20, color: Colors.transparent),
-              DropdownButton(
-                  value: _value,
-                  items: const [
-                    DropdownMenuItem(
-                      value: Difficulty.easy,
-                      child: DifficultyCircle(difficulty: Difficulty.easy)
-                    ),
-                    DropdownMenuItem(
-                      value: Difficulty.moderate,
-                      child: DifficultyCircle(difficulty: Difficulty.moderate)
-                    ),
-                    DropdownMenuItem(
-                      value: Difficulty.difficult,
-                      child: DifficultyCircle(difficulty: Difficulty.difficult)
-                    ),
-                  ],
-                  onChanged: (value){
+          Container(
+            width: 380,
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(
+                color: const Color(0xFF676f98),
+              ),
+            ),
+            child:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                IconButton(
+                  onPressed: () async {
+                    final dateTime = await DatePicker.showDateTimePicker(
+                        context,
+                        minTime: DateTime.now(),
+                        locale: LocaleType.de,
+                        currentTime: DateTime.now(),
+                        theme: const DatePickerTheme(
+                          backgroundColor: Colors.black,
+                          doneStyle: TextStyle(
+                              fontSize: 22,
+                              color: Colors.white
+                          ),
+                          cancelStyle: TextStyle(
+                              fontSize: 22,
+                              color: Colors.white
+                          ),
+                          itemStyle: TextStyle(
+                              fontSize: 22,
+                              color: Colors.white
+                          ),
+                        )
+                    );
+                    if (dateTime == null || dateTime.isBefore(DateTime.now())) {
+                      _date = null;
+                      var alert = SnackBar(content: Text(AppLocalizations.of(context)!.the_appointment_is_in_the_past));
+                      Future.delayed(Duration.zero).then((_) => ScaffoldMessenger.of(context).showSnackBar(alert));
+                    }
                     setState(() {
-                      _value = value!;
+                      dateTime != null && dateTime.isAfter(DateTime.now()) ? _date = dateTime : null;
                     });
                   },
-              )
-            ],
+                  icon: const Icon(Icons.edit_calendar, size: 30,),
+                ),
+                const Spacer(),
+                SizedBox(
+                  child: _date != null ? Text(_date!.toReadable(time: true)) : Text(AppLocalizations.of(context)!.no_date_set_yet),
+                ),
+                const Spacer()
+              ],
+            ),
+          ),
+          const Divider(height: 0, color: Colors.transparent),
+          Container(
+            height: 60,
+            width: 380,
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(
+                color: const Color(0xFF676f98),
+              ),
+
+            ),
+            child:
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(AppLocalizations.of(context)!.potential_difficulty_of_the_exam, style: const TextStyle(fontSize: 15),),
+                  const Divider(indent: 20, color: Colors.transparent),
+                  DropdownButton(
+                      value: _value,
+                      items: const [
+                        DropdownMenuItem(
+                          value: Difficulty.easy,
+                          child: DifficultyCircle(difficulty: Difficulty.easy)
+                        ),
+                        DropdownMenuItem(
+                          value: Difficulty.moderate,
+                          child: DifficultyCircle(difficulty: Difficulty.moderate)
+                        ),
+                        DropdownMenuItem(
+                          value: Difficulty.difficult,
+                          child: DifficultyCircle(difficulty: Difficulty.difficult)
+                        ),
+                      ],
+                      onChanged: (value){
+                        setState(() {
+                          _value = value!;
+                        });
+                      },
+                  )
+                ],
+              ),
           ),
           const Divider(height: 20, color: Colors.transparent),
           NoteList(notes: _notes),
           const Spacer(),
-          Center(
-            child: TextButton(
-                onPressed: _areFieldsEmpty() ? null : () async {
-                  final reminder = Reminder(
-                      title: _nameController.text.trim(),
-                      date: _date!,
-                      difficulty: _value!,
-                  );
-                  final id = await _persistReminder(reminder);
-                  if (id == 0) {
-                    Future.delayed(Duration.zero).whenComplete(() => ReminderDB.showError(context));
-                    return;
-                  }
-                  Notifier.create(reminder);
-                  final errorsOccurred = await _persistNotes(_notes, id);
-                  errorsOccurred ? Future.delayed(Duration.zero).whenComplete(() => NoteDB.showError(context)) : null;
-                  Future.delayed(Duration.zero).whenComplete(() => Navigator.pop(context, reminder));
-                },
-                child: const Text("Speichern")
+          Container(
+            width: 380,
+            //margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(
+                color: const Color(0xFF676f98),
+              ),
+            ),
+            child: Center(
+              child: TextButton(
+                  onPressed: _areFieldsEmpty() ? null : () async {
+                    final reminder = Reminder(
+                        title: _nameController.text.trim(),
+                        date: _date!,
+                        difficulty: _value!,
+                    );
+                    final id = await _persistReminder(reminder);
+                    if (id == 0) {
+                      Future.delayed(Duration.zero).whenComplete(() => ReminderDB.showError(context));
+                      return;
+                    }
+                    Notifier.create(reminder);
+                    final errorsOccurred = await _persistNotes(_notes, id);
+                    errorsOccurred ? Future.delayed(Duration.zero).whenComplete(() => NoteDB.showError(context)) : null;
+                    Future.delayed(Duration.zero).whenComplete(() => Navigator.pop(context, reminder));
+                  },
+                  child: Text(
+                      AppLocalizations.of(context)!.save,
+                    style: const TextStyle(fontSize: 22),
+                  )
+              ),
             ),
           ),
-          const Divider(height: 30, color: Colors.transparent)
+          const Divider(height: 15, color: Colors.transparent)
         ],
       ),
     );

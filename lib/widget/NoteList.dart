@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/database/NoteDB.dart';
 import 'package:mobile_application_3/widget/AddNotesButton.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../model/Note.dart';
 
 class NoteList extends StatefulWidget {
@@ -25,20 +25,20 @@ class _NoteList extends State<NoteList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-              "Notizen:",
-            style: TextStyle(
-              fontSize: 17,
+          Text(
+            AppLocalizations.of(context)!.notes,
+            style: const TextStyle(
+              fontSize: 22,
               fontWeight: FontWeight.bold
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height-394,
+            height: MediaQuery.of(context).size.height-435,
             child: ListView.builder(
               physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()
@@ -68,11 +68,11 @@ class _NoteList extends State<NoteList> {
                   onLongPress: () => showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: const Text("Notiz wird gelöscht?"),
+                      title: Text(AppLocalizations.of(context)!.note_will_be_deleted),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: const Text("Abbrechen")
+                            child: Text(AppLocalizations.of(context)!.cancel)
                         ),
                         TextButton(
                             onPressed: () async {
@@ -95,6 +95,8 @@ class _NoteList extends State<NoteList> {
                     ),
                   ),
                   child: Card(
+                    elevation: 5,
+                    color: const Color(0xFF1E202C),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(

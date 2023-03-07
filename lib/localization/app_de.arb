@@ -1,5 +1,33 @@
 {
     "language": "Deutsch",
-    "create_new_appointment": "Neuen Termin hinzufügen"
+    "create_new_appointment": "Neuen Termin hinzufügen",
+    "still": "Noch",
+    "days": "Tage",
+    "day": "Tag",
+    "notes": "Notizen",
+    "note_will_be_deleted": "Notiz wird gelöscht",
+    "cancel": "Abbrechen",
+    "exam_planer": "Klausurplaner",
+    "settings": "Einstellungen",
+    "language": "Sprache",
+    "appointment_will_be_deleted": "Termin wird gelöscht?",
+    "languages": "Sprachen",
+    "appointment_name": "Terminname",
+    "the_appointment_is_in_the_past": "Der Termin liegt in der Vergangenheit!",
+    "no_date_set_yet": "Noch kein Datum festgelegt",
+    "potential_difficulty_of_the_exam": "Potenzielle Schwierigkeit der Klausur",
+    "save": "Speichern",
+    "difficulty_of_the_exam": "Schwierigkeit der Klausur",
+    "set_notifications": "Benachrichtigungen",
+    "welcome_to_Exam_Reminder": "Willkommen bei Klausur-Reminder.",
+    "lets_get_started": "Los geht's!",
+
+    "notes": "Notizen:",
+    "add_new_note": "Neue Notiz hinzufügen",
+    "title": "Titel",
+    "content": "Inhalt",
+    "the_countdown_has_expired": "Der Countdown ist abgelaufen.",
+    "remaining": "verbleibend.",
+    "day_s_and": "Tag/e und"
 
 }

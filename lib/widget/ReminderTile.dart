@@ -16,27 +16,36 @@ class ReminderTile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return InkWell(
+
       onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => ReminderScreen(reminder: reminder))
       ),
       onLongPress: onLongPress,
       child: SizedBox(
         height: MediaQuery.of(context).size.height/10,
-        child: Card(
-          child: Stack(
-            children: [
-              Positioned(
-                child: Center(child: Text(reminder.title))
-              ),
-              Positioned(
-                bottom: 10,
-                right: 10,
-                child: DifficultyCircle(difficulty: reminder.difficulty),
-              ),
-            ],
-          )
+          child: Card(
+            color: const Color(0xFF1E202C),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            elevation: 5,
+            child: Stack(
+              children: [
+                Positioned(
+                  child: Center(child: Text(
+                      reminder.title,
+                      style: const TextStyle(fontSize: 24),
+                  ))
+                ),
+                Positioned(
+                  bottom: 20,
+                  right:20,
+                  child: DifficultyCircle(difficulty: reminder.difficulty),
+                ),
+              ],
+            )
+          ),
         ),
-      ),
     );
   }
 }

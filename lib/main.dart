@@ -40,7 +40,7 @@ Future<void> main() async {
   await ReminderDB().open();
   await NoteDB().open();
   final language = await SharedPrefs.getString("language") ?? "en";
-  runApp(MyApp(isFirst: isFirst, language: language));
+  runApp(MyApp(isFirst: true, language: language));
   SharedPrefs.saveBool("firstRun", false);
 }
 
@@ -82,7 +82,14 @@ class _MyApp extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: widget.isFirst ? WelcomeScreen() : HomeScreen(
+      home: widget.isFirst ? WelcomeScreen(
+        onLocalChange: (localFromHomescreen){
+          setState(() {
+            _locale = localFromHomescreen;
+            SharedPrefs.saveString("language", localFromHomescreen.toString());
+          });
+        },
+      ) : HomeScreen(
         onLocalChange: (localFromHomescreen){
           setState(() {
             _locale = localFromHomescreen;
