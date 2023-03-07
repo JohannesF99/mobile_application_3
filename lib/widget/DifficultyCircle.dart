@@ -13,8 +13,8 @@ class DifficultyCircle extends StatelessWidget{
     return ClipRRect(
       borderRadius: BorderRadius.circular(50),
       child: Container(
-        height: 20,
-        width: 20,
+        height: 40,
+        width: 40,
         color: DifficultyUtil.getColor(difficulty),
       ),
     );

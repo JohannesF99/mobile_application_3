@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/model/Note.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNotesButton extends StatefulWidget {
   const  AddNotesButton({
@@ -25,7 +26,7 @@ class _AddNotesButton extends State<AddNotesButton> {
         context: context,
         builder: (BuildContext context) {
           return BottomSheet(
-            backgroundColor: Colors.black54,
+            backgroundColor: const Color(0xFF1E202C),
             onClosing: () {},
             builder: (BuildContext context) {
               return Padding(
@@ -34,10 +35,11 @@ class _AddNotesButton extends State<AddNotesButton> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Divider(height: 10, color: Colors.transparent),
-                    const Text(
-                      "Neue Notiz hinzufügen",
-                      style: TextStyle(
-                          fontSize: 20,
+                    Text(
+                      AppLocalizations.of(context)!.add_new_note,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                          fontSize: 22,
                           fontWeight: FontWeight.bold
                       ),
                     ),
@@ -46,33 +48,46 @@ class _AddNotesButton extends State<AddNotesButton> {
                     const Divider(height: 10, color: Colors.transparent),
                     TextField(
                       controller: _titleController,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        hintText: 'Titel',
+                      decoration: InputDecoration(
+                        border: const UnderlineInputBorder(),
+                        hintText: AppLocalizations.of(context)!.title,
                       ),
                     ),
                     const Divider(height: 10, color: Colors.transparent),
                     TextField(
                       controller: _bodyController,
                       minLines: 12,
-                      maxLines: 15,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Inhalt',
+                      maxLines: 12,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        hintText: AppLocalizations.of(context)!.content,
                       ),
                     ),
                     const Spacer(),
-                    Center(
-                      child: TextButton(
-                          onPressed: _areFieldsEmpty() ? null : () {
-                            final note = Note(
-                                title: _titleController.text.trim(),
-                                body: _bodyController.text.trim(),
-                            );
-                            widget.onSave(note);
-                            Navigator.pop(context);
-                          },
-                          child: const Text("Speichern")
+                    Container(
+                      width: 380,
+                      //margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          color: const Color(0xFF676f98),
+                        ),
+                      ),
+                      child: Center(
+                        child: TextButton(
+
+                            onPressed: _areFieldsEmpty() ? null : () {
+                              final note = Note(
+                                  title: _titleController.text.trim(),
+                                  body: _bodyController.text.trim(),
+                              );
+                              widget.onSave(note);
+                              Navigator.pop(context);
+                            },
+                            child: Text(AppLocalizations.of(context)!.save,
+                              style: const TextStyle(fontSize: 22),
+                            )
+                        ),
                       ),
                     ),
                     const Spacer(),
