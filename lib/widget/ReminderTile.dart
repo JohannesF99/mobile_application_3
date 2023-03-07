@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application_3/widget/DifficultyCircle.dart';
-
 import '../model/Reminder.dart';
 import '../screen/ReminderScreen.dart';
 

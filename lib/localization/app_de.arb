@@ -3,6 +3,7 @@
     "create_new_appointment": "Neuen Termin hinzufügen",
     "still": "Noch",
     "days": "Tage",
+    "day_s": "Tag/e",
     "day": "Tag",
     "notes": "Notizen",
     "note_will_be_deleted": "Notiz wird gelöscht",
@@ -18,16 +19,18 @@
     "potential_difficulty_of_the_exam": "Potenzielle Schwierigkeit der Klausur",
     "save": "Speichern",
     "difficulty_of_the_exam": "Schwierigkeit der Klausur",
-    "set_notifications": "Benachrichtigungen",
-    "welcome_to_Exam_Reminder": "Willkommen bei Klausur-Reminder.",
+    "set_notifications": "Benachrichtigungen:",
+    "welcome_to_Exam_Reminder": "Willkommen bei Klausurplaner.",
     "lets_get_started": "Los geht's!",
-
     "notes": "Notizen:",
     "add_new_note": "Neue Notiz hinzufügen",
     "title": "Titel",
     "content": "Inhalt",
     "the_countdown_has_expired": "Der Countdown ist abgelaufen.",
     "remaining": "verbleibend.",
-    "day_s_and": "Tag/e und"
-
+    "day_s_and": "Tag/e und",
+    "at": "um",
+    "on": "Am",
+    "hour": "Uhr",
+    "welcome_description": "Sie haben die Möglichkeit sich mithilfe sich mithilfe unserer App an Prüfungstermine zu erinnern und diese nach beliebiger Priorität einzuordnen.\n\nJe nach Ihrer angegebenen Priorität und schwere der Prüfung werden Sie in einem bestimmten Zeitraum an die Vorbereitung bezüglich Ihrer Prüfungen erinnert.\n\nBei Bedarf gibt es auch Notizen, um Informationen zu Prüfungen festzuhalten.\n\nDes Weiteren besteht die Möglichkeit verschiedene Lernstrategien zu entdecken und zu testen, so dass Sie sich bis Prüfungsbeginn ideal vorbereiten können."
 }

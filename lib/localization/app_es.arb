@@ -1,8 +1,9 @@
 {
     "language": "español",
     "create_new_appointment": "Agregar una nueva cita",
-    "still": "Aún",
+    "still": "aún",
     "days": "Días",
+    "day_s": "Dia/s",
     "day": "Día",
     "notes": "Notas",
     "note_will_be_deleted": "La nota será eliminada",
@@ -18,15 +19,18 @@
     "potential_difficulty_of_the_exam": "Dificultad potencial del examen",
     "save": "Guardar",
     "difficulty_of_the_exam": "Dificultad del examen",
-    "set_notifications": "Notificaciones establecidas",
+    "set_notifications": "Notificaciones establecidas:",
     "welcome_to_Exam_Reminder": "Bienvenido a Recordatorio de Exámenes",
     "lets_get_started": "¡Empecemos!",
-
     "notes": "Notas:",
     "add_new_note": "Agregar nueva nota",
     "title": "Título",
     "content": "Contenido",
     "the_countdown_has_expired": " La cuenta regresiva ha expirado.",
     "remaining": "Restante.",
-    "day_s_and": "día/s y"
+    "day_s_and": "día/s y",
+    "at": "a las",
+    "on": "El",
+    "hour": "horas",
+    "welcome_description": "Tiene la opción de utilizar nuestra app para recordarse las fechas de los exámenes y priorizarla como desee.\n\nEn función de su prioridad y de la intensidad del examen, se le recordará que debe prepararse para los exámenes en un tiempo límite.\n\nSi lo necesita, también dispone de notas para anotar información sobre los exámenes.\n\nAdemás, existe la posibilidad de descubrir y probar diferentes estrategias de estudio, para que pueda prepararse de forma óptima hasta el día del examen."
 }

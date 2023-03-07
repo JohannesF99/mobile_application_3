@@ -95,10 +95,14 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                     final dateTime = await DatePicker.showDateTimePicker(
                         context,
                         minTime: DateTime.now(),
-                        locale: LocaleType.de,
+                        locale: LocaleType.values.byName(AppLocalizations.of(context)!.localeName),
                         currentTime: DateTime.now(),
                         theme: const DatePickerTheme(
-                          backgroundColor: Colors.black,
+                          backgroundColor: Color(0xFF1E202C),
+                          containerHeight: 250,
+                          titleHeight: 36,
+                          itemHeight: 44,
+
                           doneStyle: TextStyle(
                               fontSize: 22,
                               color: Colors.white
@@ -126,7 +130,11 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                 ),
                 const Spacer(),
                 SizedBox(
-                  child: _date != null ? Text(_date!.toReadable(time: true)) : Text(AppLocalizations.of(context)!.no_date_set_yet),
+                  child: _date != null ? Text(_date!.toReadable(time: true, am: AppLocalizations.of(context)!.on, um: AppLocalizations.of(context)!.at, stunde: AppLocalizations.of(context)!.hour),
+                    style: const TextStyle(fontSize: 22),
+                  ) : Text(AppLocalizations.of(context)!.no_date_set_yet,
+                    style: const TextStyle(fontSize: 19),
+                  ),
                 ),
                 const Spacer()
               ],
@@ -152,6 +160,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                   const Divider(indent: 20, color: Colors.transparent),
                   DropdownButton(
                       value: _value,
+                      underline: const SizedBox(),
                       items: const [
                         DropdownMenuItem(
                           value: Difficulty.easy,
@@ -176,7 +185,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               ),
           ),
           const Divider(height: 20, color: Colors.transparent),
-          NoteList(notes: _notes),
+          NoteList(notes: _notes, height: 435,),
           const Spacer(),
           Container(
             width: 380,

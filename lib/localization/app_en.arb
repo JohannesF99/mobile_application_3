@@ -94,9 +94,9 @@
             "description": "difficulty of the exam"
         },
 
-    "set_notifications": "Set notifications",
+    "set_notifications": "Set notifications:",
         "@set_notifications":{
-            "description": "Set notifications"
+            "description": "Set notifications:"
         },
 
     "welcome_to_Exam_Reminder": "Welcome to Exam Reminder.",
@@ -142,5 +142,30 @@
     "day_s_and": "day/s and",
         "@day_s_and":{
             "description": "day/s and"
+        },
+
+    "at": "at",
+        "@at":{
+            "description": "at"
+        },
+
+    "on": "On",
+        "@on":{
+            "description": "On"
+        },
+
+    "hour": "",
+        "@hour":{
+            "description": ""
+        },
+
+    "day_s": "day/s",
+        "@day_s":{
+            "description": "day/s"
+        },
+
+    "welcome_description": "By using our app, you have the possibility to arrange your exam dates in order of priority.\n\nDepending on your priority and the importance of the exam, you will be sent a reminder to prepare for your exams within a certain period of time.\n\nIf required, there are also notes to retain information about exams.\n\nAdditionally, there is the possibility to use different learning strategies and try them out, so that you can prepare yourself ideally until the start of the exam.",
+        "@welcome_description":{
+            "description": ""
         }
 }

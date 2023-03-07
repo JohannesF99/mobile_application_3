@@ -8,10 +8,12 @@ class NoteList extends StatefulWidget {
   const NoteList({
     super.key, 
     required this.notes,
+    required this.height,
     this.reminderId
   });
 
   final List<Note> notes;
+  final int height;
   final int? reminderId;
 
   @override
@@ -38,7 +40,8 @@ class _NoteList extends State<NoteList> {
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height-435,
+            //height: MediaQuery.of(context).size.height-435,
+            height: MediaQuery.of(context).size.height-widget.height,
             child: ListView.builder(
               physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()

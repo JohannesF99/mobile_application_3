@@ -7,6 +7,7 @@ import 'package:mobile_application_3/widget/DifficultyCircle.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../model/Note.dart';
 import '../model/Reminder.dart';
+import '../widget/NotificationList.dart';
 
 class ReminderScreen extends StatefulWidget{
   const ReminderScreen({super.key, required this.reminder});
@@ -51,7 +52,12 @@ class _ReminderScreen extends State<ReminderScreen> {
                       size: 50,
                   ),
                   Column(children: [
-                      Text(widget.reminder.date.toReadable(time: true),
+                      Text(widget.reminder.date.toReadable(
+                        time: true,
+                        am: AppLocalizations.of(context)?.on,
+                        um: AppLocalizations.of(context)?.at,
+                        stunde: AppLocalizations.of(context)?.hour
+                      ),
                         style: const TextStyle(fontSize: 20),
                       ),
                       const Divider(height: 5, color: Colors.transparent),
@@ -69,17 +75,26 @@ class _ReminderScreen extends State<ReminderScreen> {
               ),
               color: const Color(0xFF1E202C),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   DifficultyCircle(difficulty: widget.reminder.difficulty),
                   Text(AppLocalizations.of(context)!.difficulty_of_the_exam,
-                    style: const TextStyle(fontSize: 21),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   const Divider(indent: 10, color: Colors.transparent),
                 ],
               ),
             ),
-
+            const Divider(height: 20, color: Colors.transparent),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(AppLocalizations.of(context)!.set_notifications,
+                  style: const TextStyle(fontSize: 18)
+                ),
+                NotificationList(channel: widget.reminder.title),
+              ],
+            ),
             const Divider(height: 20, color: Colors.transparent),
             FutureBuilder(
               future: NoteDB().getNotesForReminder(widget.reminder.id!),
@@ -87,6 +102,7 @@ class _ReminderScreen extends State<ReminderScreen> {
                 if(snapshot.hasData && snapshot.connectionState == ConnectionState.done){
                   final notes = snapshot.data!;
                   return NoteList(
+                    height: 515,
                     notes: notes,
                     reminderId: widget.reminder.id!,
                   );
@@ -94,9 +110,10 @@ class _ReminderScreen extends State<ReminderScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
             ),
+
           ],
         ),
-      )
+      ),
     );
   }
 }
