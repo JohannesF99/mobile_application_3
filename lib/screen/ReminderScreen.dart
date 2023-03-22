@@ -61,7 +61,7 @@ class _ReminderScreen extends State<ReminderScreen> {
                         style: const TextStyle(fontSize: 20),
                       ),
                       const Divider(height: 5, color: Colors.transparent),
-                      CountDownUtil.inGerman(widget.reminder.date),
+                      CountDownUtil.fromDate(widget.reminder.date),
                   ],)
                 ],
               ),

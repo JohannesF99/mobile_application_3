@@ -3,8 +3,10 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:mobile_application_3/util/DateTimeUtil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Sammlung nützlicher Funktionen, um mit dem CountDown PlugIn zu arbeiten.
 class CountDownUtil{
-  static CountdownTimer inGerman(DateTime date){
+  /// Statische Funktion, welche einen CountDown für ein Datum erstellt.
+  static CountdownTimer fromDate(DateTime date){
     return CountdownTimer(
       endTime: date.getRemainingMilliSeconds(),
       widgetBuilder: (BuildContext context, time) {
