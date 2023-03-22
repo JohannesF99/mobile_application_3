@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_application_3/util/SharedPrefs.dart';
 
+/// Bildschirm, um die Sprache auszuwählen
 class LanguageSelectScreen extends StatefulWidget {
   const LanguageSelectScreen({super.key});
 
@@ -19,6 +20,7 @@ class _LanguageSelectScreen extends State<LanguageSelectScreen>{
           title: Text(AppLocalizations.of(context).languages),
           backgroundColor: const Color(0xFF1E202C),
         ),
+        /// Holt sich asynchron die Sprache aus den Shared Preferences
         body: FutureBuilder(
           future: SharedPrefs.getString("language"),
           builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
