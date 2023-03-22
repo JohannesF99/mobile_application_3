@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../util/Notifier.dart';
 
+/// Erstellt ein Widget, welches alle eingestellten Erinnerungen anzeigt.
+/// Bekommt einen Channel-Namen übergeben, welcher den Namen eines Termins
+/// wiederspiegelt.
 class NotificationList extends StatefulWidget {
   const NotificationList({
     super.key,
@@ -17,14 +20,18 @@ class NotificationList extends StatefulWidget {
   State<StatefulWidget> createState() => _NotificationList();
 }
 
-Future<void> onAction(a) async {}
-
 class _NotificationList extends State<NotificationList> {
 
+  /// Mit dem FutureBuilder wird eine Liste von Benachrichtigungen generiert,
+  /// daher das [late]-Keyword.
   late List<NotificationDetail> notifications;
 
   @override
   void initState() {
+    /// Wenn eine Benachrichtigung ausläuft, soll der korrespondierende
+    /// Eintrag in der Liste gelöscht werden.
+    /// Dazu muss die [onNotificationDisplayedMethod] die
+    /// Methode [setState] aufrufen, damit der FutureBuilder erneut gebaut wird.
     AwesomeNotifications().setListeners(
       onActionReceivedMethod: (_) async {},
       onNotificationDisplayedMethod: (_) async => setState((){})
@@ -34,12 +41,17 @@ class _NotificationList extends State<NotificationList> {
 
   @override
   Widget build(BuildContext context) {
+    /// FutureBuilder für das asynchrone Erhalten.
     return FutureBuilder(
       future: Notifier.getForChannel(widget.channel),
       builder: (BuildContext context, AsyncSnapshot<List<NotificationDetail>> snapshot) {
         if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
           notifications = snapshot.data!;
+          /// Sobald die Daten erhalten wurde, verwende einen [ListView.builder],
+          /// um über die Liste zu iterieren und die Benachrichtigungen
+          /// anzuzeigen
           return ListView.builder(
+            /// Liste soll nicht Scrollbar sein.
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: notifications.length,
@@ -67,6 +79,9 @@ class _NotificationList extends State<NotificationList> {
                               ),
                               const Spacer(),
                               IconButton(
+                                /// Wenn die Benachrichtigung abgeschaltet
+                                /// werden soll, Cancel sie und rufe [setState]
+                                /// auf, um die Liste zu aktualisieren.
                                   onPressed: () =>
                                       AwesomeNotifications()
                                           .cancel(notifications[i].id)
@@ -83,6 +98,8 @@ class _NotificationList extends State<NotificationList> {
             },
           );
         }
+        /// Solange die Daten noch nicht erhalten sind, soll ein
+        /// [CircularProgressIndicator] angezeigt werden.
         return const Center(child: CircularProgressIndicator());
       },
     );
