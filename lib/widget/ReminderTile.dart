@@ -18,7 +18,6 @@ class ReminderTile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return InkWell(
-
       /// Wenn auf den Termin geklickt wird, zeige den [ReminderScreen] an.
       onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => ReminderScreen(reminder: reminder))

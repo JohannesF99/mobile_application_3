@@ -23,7 +23,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
           children: [
             const Divider(height: 70, color: Colors.transparent),
             Text(
-              AppLocalizations.of(context)!.welcome_to_Exam_Reminder,
+              AppLocalizations.of(context).welcome_to_Exam_Reminder,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 30,
@@ -31,7 +31,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
               ),
             ),
             const Spacer(),
-            Text(AppLocalizations.of(context)!.welcome_description,
+            Text(AppLocalizations.of(context).welcome_description,
               style: const TextStyle(fontSize: 22),
             ),
             const Spacer(),
@@ -45,7 +45,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                   child: SizedBox(
                     width: 350,
                       child: TextButton(
-                        child: Text(AppLocalizations.of(context)!.lets_get_started,
+                        child: Text(AppLocalizations.of(context).lets_get_started,
                           style: const TextStyle(fontSize: 26),
                         ),
                         onPressed: () => Navigator.pushReplacement(context,

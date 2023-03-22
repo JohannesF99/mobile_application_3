@@ -39,14 +39,13 @@ class _NoteList extends State<NoteList> {
         children: [
           /// Überschrift
           Text(
-            AppLocalizations.of(context)!.notes,
+            AppLocalizations.of(context).notes,
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold
             ),
           ),
           SizedBox(
-            //height: MediaQuery.of(context).size.height-435,
             height: MediaQuery.of(context).size.height-widget.height,
             /// Ein Builder, welcher alle Elemente der im Konstruktor übergebenen
             /// List an Notizen darstellt.
@@ -97,11 +96,11 @@ class _NoteList extends State<NoteList> {
                   onLongPress: () => showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.note_will_be_deleted),
+                      title: Text(AppLocalizations.of(context).note_will_be_deleted),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: Text(AppLocalizations.of(context)!.cancel)
+                            child: Text(AppLocalizations.of(context).cancel)
                         ),
                         TextButton(
                             onPressed: () async {
