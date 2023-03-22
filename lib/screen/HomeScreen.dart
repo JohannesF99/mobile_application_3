@@ -8,6 +8,8 @@ import '../database/ReminderDB.dart';
 import '../model/Reminder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Die Hauptseite der App. Erhält eine Funktion zum Ändern der Sprache im
+/// Konstruktor.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.onLocalChange});
 
@@ -19,8 +21,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
 
+  /// Datenbank-Verbindung zum Verarbeiten von Terminen
   final _reminderDb = ReminderDB();
+  /// Datenbank-Verbindung zum Verarbeiten von Notizen
   final _noteDb = NoteDB();
+  /// Liste von Terminen
   late List<Reminder> _reminderList;
 
   @override
@@ -31,6 +36,7 @@ class _HomeScreen extends State<HomeScreen> {
         title: Text(AppLocalizations.of(context).exam_planer, style: const TextStyle(fontSize: 24),),
         backgroundColor: const Color(0xFF1E202C),
       ),
+      /// Seitenmenu zur Auswahl der Sprache
       drawer: Drawer(
         backgroundColor: const Color(0xFF1E202C),
         child: ListView(
@@ -73,6 +79,8 @@ class _HomeScreen extends State<HomeScreen> {
           ],
         ),
       ),
+      /// Button zum Hinzufügen von neuen Terminen
+      /// Ruft den [NewReminderScreen] auf
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () async {
@@ -87,6 +95,8 @@ class _HomeScreen extends State<HomeScreen> {
         },
         child: const Icon(Icons.add),
       ),
+      /// Holt sich asynchron die Termine aus der Datenbank, um sie anschließend
+      /// mit einem [ListView.builder] darzustellen.
       body: FutureBuilder(
         future: _reminderDb.getAll(),
         builder: (BuildContext context, AsyncSnapshot<List<Reminder>> snapshot) {
@@ -95,8 +105,12 @@ class _HomeScreen extends State<HomeScreen> {
             return ListView.builder(
                 itemCount: _reminderList.length,
                 itemBuilder: (context, i) =>
+                    /// Erstellt für jeden Termin ein [ReminderTile] mit dem Inhalt
+                    /// des Termins
                     ReminderTile(
                         reminder: _reminderList[i],
+                        /// Auf den langen Druck wird ein Dialog geöffnet, welcher
+                        /// den Nutzer fragt, ob er den Eintrag löschen möchte
                         onLongPress: () => showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
