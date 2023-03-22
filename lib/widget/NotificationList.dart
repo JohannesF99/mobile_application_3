@@ -58,11 +58,11 @@ class _NotificationList extends State<NotificationList> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Divider(indent: 20, color: Colors.transparent),
-                              Text(notifications[i].date.toReadable(time: false, am: AppLocalizations.of(context)?.on),
+                              Text(notifications[i].date.toReadable(time: false, am: AppLocalizations.of(context).on),
                                 style: const TextStyle(fontSize: 16)
                               ),
                               const Divider(indent: 10, color: Colors.transparent),
-                              Text("${AppLocalizations.of(context)!.still} ${notifications[i].date.difference(DateTime.now()).inDays} ${AppLocalizations.of(context)!.day_s}",
+                              Text("${AppLocalizations.of(context).still} ${notifications[i].date.difference(DateTime.now()).inDays} ${AppLocalizations.of(context).day_s}",
                                   style: const TextStyle(fontSize: 16)
                               ),
                               const Spacer(),

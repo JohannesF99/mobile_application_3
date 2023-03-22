@@ -40,7 +40,7 @@ Future<void> main() async {
   await ReminderDB().open();
   await NoteDB().open();
   final language = await SharedPrefs.getString("language") ?? "en";
-  runApp(MyApp(isFirst: true, language: language));
+  runApp(MyApp(isFirst: isFirst, language: language));
   SharedPrefs.saveBool("firstRun", false);
 }
 

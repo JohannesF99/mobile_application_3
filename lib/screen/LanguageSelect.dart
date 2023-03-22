@@ -16,7 +16,7 @@ class _LanguageSelectScreen extends State<LanguageSelectScreen>{
     return Scaffold(
         backgroundColor: const Color(0xFF1E202C),
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.languages),
+          title: Text(AppLocalizations.of(context).languages),
           backgroundColor: const Color(0xFF1E202C),
         ),
         body: FutureBuilder(

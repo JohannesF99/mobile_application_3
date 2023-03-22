@@ -37,7 +37,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
       backgroundColor: const Color(0xFF1E202C),
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.create_new_appointment
+          AppLocalizations.of(context).create_new_appointment
         ),
         backgroundColor: const Color(0xFF1E202C),
       ),
@@ -65,7 +65,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                 decoration: InputDecoration(
                   counterText: "",
                   border: InputBorder.none,
-                  hintText: AppLocalizations.of(context)!.appointment_name,
+                  hintText: AppLocalizations.of(context).appointment_name,
                 ),
                 onChanged: (_) => setState(() {}),
                 controller: _nameController,
@@ -91,7 +91,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                     final dateTime = await DatePicker.showDateTimePicker(
                         context,
                         minTime: DateTime.now(),
-                        locale: LocaleType.values.byName(AppLocalizations.of(context)!.localeName),
+                        locale: LocaleType.values.byName(AppLocalizations.of(context).localeName),
                         currentTime: DateTime.now(),
                         theme: const DatePickerTheme(
                           backgroundColor: Color(0xFF1E202C),
@@ -114,7 +114,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                     );
                     if (dateTime == null || dateTime.isBefore(DateTime.now())) {
                       _date = null;
-                      var alert = SnackBar(content: Text(AppLocalizations.of(context)!.the_appointment_is_in_the_past));
+                      var alert = SnackBar(content: Text(AppLocalizations.of(context).the_appointment_is_in_the_past));
                       Future.delayed(Duration.zero).then((_) => ScaffoldMessenger.of(context).showSnackBar(alert));
                     }
                     setState(() {
@@ -126,11 +126,11 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                 const Spacer(),
                 SizedBox(
                   child: _date != null ? Text(_date!.toReadable(
-                      time: true, am: AppLocalizations.of(context)!.on,
-                      um: AppLocalizations.of(context)!.at,
-                      stunde: AppLocalizations.of(context)!.hour),
+                      time: true, am: AppLocalizations.of(context).on,
+                      um: AppLocalizations.of(context).at,
+                      stunde: AppLocalizations.of(context).hour),
                     style: const TextStyle(fontSize: 22),
-                  ) : Text(AppLocalizations.of(context)!.no_date_set_yet,
+                  ) : Text(AppLocalizations.of(context).no_date_set_yet,
                     style: const TextStyle(fontSize: 19),
                   ),
                 ),
@@ -153,7 +153,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(AppLocalizations.of(context)!.potential_difficulty_of_the_exam, style: const TextStyle(fontSize: 15),),
+                  Text(AppLocalizations.of(context).potential_difficulty_of_the_exam, style: const TextStyle(fontSize: 15),),
                   const Divider(indent: 20, color: Colors.transparent),
                   DropdownButton(
                       value: _value,
@@ -211,7 +211,7 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                     Future.delayed(Duration.zero).whenComplete(() => Navigator.pop(context, reminder));
                   },
                   child: Text(
-                      AppLocalizations.of(context)!.save,
+                      AppLocalizations.of(context).save,
                     style: const TextStyle(fontSize: 22),
                   )
               ),

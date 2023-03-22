@@ -33,7 +33,7 @@ class _NoteList extends State<NoteList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.notes,
+            AppLocalizations.of(context).notes,
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold
@@ -70,11 +70,11 @@ class _NoteList extends State<NoteList> {
                   onLongPress: () => showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.note_will_be_deleted),
+                      title: Text(AppLocalizations.of(context).note_will_be_deleted),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: Text(AppLocalizations.of(context)!.cancel)
+                            child: Text(AppLocalizations.of(context).cancel)
                         ),
                         TextButton(
                             onPressed: () async {

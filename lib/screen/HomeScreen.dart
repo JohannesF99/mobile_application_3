@@ -28,7 +28,7 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E202C),
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.exam_planer, style: const TextStyle(fontSize: 24),),
+        title: Text(AppLocalizations.of(context).exam_planer, style: const TextStyle(fontSize: 24),),
         backgroundColor: const Color(0xFF1E202C),
       ),
       drawer: Drawer(
@@ -43,7 +43,7 @@ class _HomeScreen extends State<HomeScreen> {
                   color: Color(0xFF1E202C),
                 ),
                 child: Text(
-                  AppLocalizations.of(context)!.settings,
+                  AppLocalizations.of(context).settings,
                   style: const TextStyle(
                       fontSize: 28
                   ),
@@ -55,7 +55,7 @@ class _HomeScreen extends State<HomeScreen> {
                 Icons.language,
               ),
               title: Text(
-                AppLocalizations.of(context)!.language,
+                AppLocalizations.of(context).language,
                 style: const TextStyle(
                   fontSize: 20
                 )
@@ -100,11 +100,11 @@ class _HomeScreen extends State<HomeScreen> {
                         onLongPress: () => showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
-                              title: Text(AppLocalizations.of(context)!.appointment_will_be_deleted),
+                              title: Text(AppLocalizations.of(context).appointment_will_be_deleted),
                               actions: [
                                 TextButton(
                                     onPressed: () => Navigator.pop(context),
-                                    child: Text(AppLocalizations.of(context)!.cancel)
+                                    child: Text(AppLocalizations.of(context).cancel)
                                 ),
                                 TextButton(
                                     onPressed: () async {

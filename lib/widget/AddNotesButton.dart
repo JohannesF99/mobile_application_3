@@ -36,7 +36,7 @@ class _AddNotesButton extends State<AddNotesButton> {
                   children: [
                     const Divider(height: 10, color: Colors.transparent),
                     Text(
-                      AppLocalizations.of(context)!.add_new_note,
+                      AppLocalizations.of(context).add_new_note,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                           fontSize: 22,
@@ -50,7 +50,7 @@ class _AddNotesButton extends State<AddNotesButton> {
                       controller: _titleController,
                       decoration: InputDecoration(
                         border: const UnderlineInputBorder(),
-                        hintText: AppLocalizations.of(context)!.title,
+                        hintText: AppLocalizations.of(context).title,
                       ),
                     ),
                     const Divider(height: 10, color: Colors.transparent),
@@ -60,7 +60,7 @@ class _AddNotesButton extends State<AddNotesButton> {
                       maxLines: 12,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        hintText: AppLocalizations.of(context)!.content,
+                        hintText: AppLocalizations.of(context).content,
                       ),
                     ),
                     const Spacer(),
@@ -82,7 +82,7 @@ class _AddNotesButton extends State<AddNotesButton> {
                               widget.onSave(note);
                               Navigator.pop(context);
                             },
-                            child: Text(AppLocalizations.of(context)!.save,
+                            child: Text(AppLocalizations.of(context).save,
                               style: const TextStyle(fontSize: 22),
                             )
                         ),

@@ -54,9 +54,9 @@ class _ReminderScreen extends State<ReminderScreen> {
                   Column(children: [
                       Text(widget.reminder.date.toReadable(
                         time: true,
-                        am: AppLocalizations.of(context)?.on,
-                        um: AppLocalizations.of(context)?.at,
-                        stunde: AppLocalizations.of(context)?.hour
+                        am: AppLocalizations.of(context).on,
+                        um: AppLocalizations.of(context).at,
+                        stunde: AppLocalizations.of(context).hour
                       ),
                         style: const TextStyle(fontSize: 20),
                       ),
@@ -78,7 +78,7 @@ class _ReminderScreen extends State<ReminderScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   DifficultyCircle(difficulty: widget.reminder.difficulty),
-                  Text(AppLocalizations.of(context)!.difficulty_of_the_exam,
+                  Text(AppLocalizations.of(context).difficulty_of_the_exam,
                     style: const TextStyle(fontSize: 20),
                   ),
                   const Divider(indent: 10, color: Colors.transparent),
@@ -89,7 +89,7 @@ class _ReminderScreen extends State<ReminderScreen> {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(AppLocalizations.of(context)!.set_notifications,
+                Text(AppLocalizations.of(context).set_notifications,
                   style: const TextStyle(fontSize: 18)
                 ),
                 NotificationList(channel: widget.reminder.title),

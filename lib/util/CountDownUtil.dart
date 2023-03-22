@@ -10,7 +10,7 @@ class CountDownUtil{
       widgetBuilder: (BuildContext context, time) {
         if (time == null) {
           return Center(
-            child: Text(AppLocalizations.of(context)!.the_countdown_has_expired,
+            child: Text(AppLocalizations.of(context).the_countdown_has_expired,
               style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18.5
@@ -21,14 +21,14 @@ class CountDownUtil{
         String value = '';
         if (time.days != null) {
           var days = time.days!;
-          value = '$value$days ${AppLocalizations.of(context)!.day_s_and} ';
+          value = '$value$days ${AppLocalizations.of(context).day_s_and} ';
         }
         var hours = (time.hours ?? 0).getNumberAddZero();
         value = '$value$hours:';
         var min = (time.min ?? 0).getNumberAddZero();
         value = '$value$min:';
         var sec = (time.sec ?? 0).getNumberAddZero();
-        value = '$value$sec ${AppLocalizations.of(context)!.remaining}';
+        value = '$value$sec ${AppLocalizations.of(context).remaining}';
         return Text(
           value,
           style: const TextStyle(
