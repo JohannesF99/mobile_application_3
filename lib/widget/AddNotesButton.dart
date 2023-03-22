@@ -66,7 +66,6 @@ class _AddNotesButton extends State<AddNotesButton> {
                     const Spacer(),
                     Container(
                       width: 380,
-                      //margin: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(
@@ -75,7 +74,6 @@ class _AddNotesButton extends State<AddNotesButton> {
                       ),
                       child: Center(
                         child: TextButton(
-
                             onPressed: _areFieldsEmpty() ? null : () {
                               final note = Note(
                                   title: _titleController.text.trim(),

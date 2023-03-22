@@ -40,7 +40,6 @@ class _NoteList extends State<NoteList> {
             ),
           ),
           SizedBox(
-            //height: MediaQuery.of(context).size.height-435,
             height: MediaQuery.of(context).size.height-widget.height,
             child: ListView.builder(
               physics: const BouncingScrollPhysics(

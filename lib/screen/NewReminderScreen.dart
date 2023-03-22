@@ -29,10 +29,8 @@ class _NewReminderScreen extends State<NewReminderScreen> {
   Difficulty? _value;
   DateTime? _date;
 
-
   @override
   Widget build(BuildContext context) {
-    //final Locale appLocale = Localizations.localeOf(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -46,7 +44,6 @@ class _NewReminderScreen extends State<NewReminderScreen> {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 380,
@@ -56,7 +53,6 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               border: Border.all(
                 color: const Color(0xFF676f98),
               ),
-
             ),
             child:
             Padding(
@@ -102,7 +98,6 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                           containerHeight: 250,
                           titleHeight: 36,
                           itemHeight: 44,
-
                           doneStyle: TextStyle(
                               fontSize: 22,
                               color: Colors.white
@@ -130,7 +125,10 @@ class _NewReminderScreen extends State<NewReminderScreen> {
                 ),
                 const Spacer(),
                 SizedBox(
-                  child: _date != null ? Text(_date!.toReadable(time: true, am: AppLocalizations.of(context)!.on, um: AppLocalizations.of(context)!.at, stunde: AppLocalizations.of(context)!.hour),
+                  child: _date != null ? Text(_date!.toReadable(
+                      time: true, am: AppLocalizations.of(context)!.on,
+                      um: AppLocalizations.of(context)!.at,
+                      stunde: AppLocalizations.of(context)!.hour),
                     style: const TextStyle(fontSize: 22),
                   ) : Text(AppLocalizations.of(context)!.no_date_set_yet,
                     style: const TextStyle(fontSize: 19),
@@ -150,7 +148,6 @@ class _NewReminderScreen extends State<NewReminderScreen> {
               border: Border.all(
                 color: const Color(0xFF676f98),
               ),
-
             ),
             child:
               Row(
@@ -189,7 +186,6 @@ class _NewReminderScreen extends State<NewReminderScreen> {
           const Spacer(),
           Container(
             width: 380,
-            //margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               border: Border.all(

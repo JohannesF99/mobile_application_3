@@ -25,55 +25,24 @@ class _LanguageSelectScreen extends State<LanguageSelectScreen>{
             if(snapshot.connectionState == ConnectionState.done){
               var language = snapshot.data ?? "en";
               return Center(
-                  child: ListView(
-                    children: [
-                      RadioListTile(
-                        value: "en",
+                  child:
+                  ListView.builder(
+                    itemCount: 3,
+                    itemBuilder: (BuildContext context, int index) {
+                      return RadioListTile(
+                        value: index == 0 ? "en" : index == 1 ? "de" : "es",
                         groupValue: language,
-                        title: const Text("English",
-                          style: TextStyle(
-                              fontSize: 30
-                          ),
-                        ),
-                        onChanged: (value){
+                        title:  index == 0 ? const Text("English", style: TextStyle(fontSize: 30)) :
+                                index == 1 ? const Text("Deutsch", style: TextStyle(fontSize: 30)) :
+                                const Text("español", style: TextStyle(fontSize: 30)),
+                        onChanged: (value) {
                           setState(() {
                             language = value!;
-                            Navigator.pop(context, 'en');
+                            Navigator.pop(context, value);
                           });
                         },
-                      ),
-                      RadioListTile(
-                        value: "de",
-                        groupValue: language,
-                        title: const Text("Deutsch",
-                          style: TextStyle(
-                              fontSize: 30
-                          ),
-                        ),
-                        onChanged: (value){
-                          setState(() {
-                            language = value!;
-                            Navigator.pop(context, 'de');
-                          });
-                          //Navigator.pop(context, 'de');
-                        },
-                      ),
-                      RadioListTile(
-                        value: "es",
-                        groupValue: language,
-                        title: const Text("español",
-                          style: TextStyle(
-                              fontSize: 30
-                          ),
-                        ),
-                        onChanged: (value){
-                          setState(() {
-                            language = value!;
-                            Navigator.pop(context, 'es');
-                          });
-                        },
-                      ),
-                    ],
+                      );
+                    },
                   )
               );
             }

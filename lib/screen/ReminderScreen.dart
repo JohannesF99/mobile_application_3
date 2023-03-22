@@ -110,7 +110,6 @@ class _ReminderScreen extends State<ReminderScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
             ),
-
           ],
         ),
       ),

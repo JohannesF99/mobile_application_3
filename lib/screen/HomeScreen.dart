@@ -28,7 +28,7 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E202C),
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.exam_planer, style: TextStyle(fontSize: 24),),
+        title: Text(AppLocalizations.of(context)!.exam_planer, style: const TextStyle(fontSize: 24),),
         backgroundColor: const Color(0xFF1E202C),
       ),
       drawer: Drawer(
