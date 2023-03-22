@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Wrapper-Klasse für die [SharedPreferences] API.
 class SharedPrefs{
   static Future<bool?> getBool(String val) async {
     var pref = await SharedPreferences.getInstance();
