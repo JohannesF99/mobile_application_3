@@ -3,6 +3,9 @@ import 'package:mobile_application_3/widget/DifficultyCircle.dart';
 import '../model/Reminder.dart';
 import '../screen/ReminderScreen.dart';
 
+/// Erstellt eine visuelle Darstellung eines Termins.
+/// Bekommt einen Termin & eine Funktion [onLongPress] übergeben,
+/// welche beschreibt, was passieren soll, wenn lange auf den Termin gedrückt wird.
 class ReminderTile extends StatelessWidget{
   const ReminderTile({super.key,
     required this.reminder,
@@ -15,6 +18,7 @@ class ReminderTile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      /// Wenn auf den Termin geklickt wird, zeige den [ReminderScreen] an.
       onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => ReminderScreen(reminder: reminder))
       ),

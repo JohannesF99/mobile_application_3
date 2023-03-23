@@ -1,5 +1,7 @@
 import '../enum/Difficulty.dart';
 
+/// Daten-Klasse, welche Informationen für einen Termin beinhaltet.
+/// Ein Termin besteht aus einer ID, einem Titel, einem Datum und einer Schwierigkeit.
 class Reminder{
   int? id;
   final String title;
@@ -13,6 +15,7 @@ class Reminder{
     required this.difficulty,
   });
 
+  /// Methode für die Speicherung in der Datenbank.
   Map<String, Object?> toMap() {
     var map = <String, Object?>{
       "title": title,
@@ -25,6 +28,7 @@ class Reminder{
     return map;
   }
 
+  /// Methode, um Objekt aus Datenbank zu instanzinieren.
   Reminder.fromMap(Map<String, Object?> map):
     id = map["_id"] as int,
     title = map["title"] as String,

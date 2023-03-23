@@ -9,6 +9,8 @@ import '../model/Note.dart';
 import '../model/Reminder.dart';
 import '../widget/NotificationList.dart';
 
+/// Zeigt Infos zu einem existierenden Termin an.
+/// Erhält einen Termin im Konstruktor
 class ReminderScreen extends StatefulWidget{
   const ReminderScreen({super.key, required this.reminder});
 
@@ -61,7 +63,7 @@ class _ReminderScreen extends State<ReminderScreen> {
                         style: const TextStyle(fontSize: 20),
                       ),
                       const Divider(height: 5, color: Colors.transparent),
-                      CountDownUtil.inGerman(widget.reminder.date),
+                      CountDownUtil.fromDate(widget.reminder.date),
                   ],)
                 ],
               ),

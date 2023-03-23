@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mobile_application_3/screen/HomeScreen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Einfacher Willkommens-Screen, welcher die Features der App erklärt.
+/// Bekommt eine Funktion [onLocalChange], welche später an de HomeScreen
+/// weitergegeben wird, um den Sprachenwechsel zu ermöglichen.
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key, required this.onLocalChange});
 
@@ -48,6 +51,9 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                         child: Text(AppLocalizations.of(context).lets_get_started,
                           style: const TextStyle(fontSize: 26),
                         ),
+                        /// Pushed den HomeScreen auf den Stack. Entfernt vorher
+                        /// jedoch den aktuellen Screen, damit dieser nicht auf dem
+                        /// Stack verharrt.
                         onPressed: () => Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (_) => HomeScreen(
                                 onLocalChange: widget.onLocalChange
