@@ -1,16 +1,12 @@
-# mobile_application_3
+# WMP: Mobile Application III
 
-App für das Modul "Mobile Application III"
+App für das Wahlpflichtmodul "Mobile Application III"
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
+Um das Programm zu installieren, klonen Sie das Repo auf ihren PC und öffnen sie das Programm mit Android Studio.<br>
+Bevor das Programm starten kann, müssen die Localisations für die Übersetzungen generiert werden.<br>
+Dazu führen Sie den folgenden Befehl in einem Terminal im Ordner des Repo aus:<br>
+`flutter gen-l10n --arb-dir="lib/localization"`
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Anschließend kann die App gebaut oder emuliert werden.
